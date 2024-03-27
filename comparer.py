@@ -26,8 +26,18 @@ def main():
             news_getter(my_subdir, source)
     simil_ed = source_comparing(editions_by_source)
     simil_fl = source_comparing(flows_by_source)
-    save_file('.', 'editions_simils.json', simil_ed)
-    save_file('.', 'flows_simils.json', simil_fl)
+    out_ed = []
+    out_fl = []
+    for list1 in simil_ed:
+        for list2 in list1:
+            for item in list2:
+                out_ed.append(item)
+    for list1 in simil_fl:
+        for list2 in list1:
+            for item in list2:
+                out_fl.append(item)
+    save_file('.', 'editions_simils.json', out_ed)
+    save_file('.', 'flows_simils.json', out_fl)
 
 def save_file(directory: str, filename : str, content):
     with open(directory + '/' + filename, 'w') as f:
