@@ -6,13 +6,15 @@ from pathlib import Path
 
 BASE_DIR = f"../Newscraping/collectedNews/"
 
-my_subdirs = ['edition/DE', 'edition/FR', 'edition/EN', 'edition/IT', 'flow/DE', 'flow/EN', 'flow/IT']
+my_subdirs = ['edition/DE', 'edition/FR', 'edition/EN', 'edition/IT', 'flow/DE', 'flow/EN', 'flow/IT', 'flow/PT']
 
-ed_type = ["RTS", "Tagesschau", "Zdf", "France24", "GR1", "PBS"]
-flow_type = ["Zeit", "Televideo", "ilPost"]
+# ed_type = ["RTS", "Tagesschau", "Zdf", "France24", "GR1", "PBS"]
+ed_type = []
+flow_type = ["Televideo", "ExpressoPt"]
 
-source_conv = {'RTS': 0, 'Tagesschau': 1, 'Zdf': 2, 'France24': 3, 'GR1': 4, 'PBS': 5,
-               'Zeit': 0, 'Televideo': 1, 'ilPost': 2, 'BBC': 3}
+source_conv = {
+                #'RTS': 0, 'Tagesschau': 1, 'Zdf': 2, 'France24': 3, 'GR1': 4, 'PBS': 5,
+               'Televideo': 0, 'ExpressoPt': 1}
 
 editions_by_source = [[], [], [], [], [], []]
 flows_by_source = [[], [], [], [], []]

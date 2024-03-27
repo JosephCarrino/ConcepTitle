@@ -7,7 +7,8 @@ from yattag import indent
 editions_name = ["edition/FR/RTS/", "edition/DE/Tagesschau/", "edition/DE/Zdf/",
                  "edition/EN/France24/", "edition/IT/GR1/", "edition/EN/PBS/"]
 
-flows_name = ["flow/DE/Zeit/", "flow/IT/ilPost/", "flow/IT/Televideo/", "flow/EN/RioTimes/"]
+# flows_name = ["flow/DE/Zeit/", "flow/IT/ilPost/", "flow/IT/Televideo/", "flow/EN/RioTimes/"]
+flows_name = ["flow/IT/Televideo/", "flow/EN/RioTimes/"]
 
 
 # editions_name = ["CH/RTS/", "DE/Tagesschau", "FR/France24"]
@@ -15,16 +16,16 @@ flows_name = ["flow/DE/Zeit/", "flow/IT/ilPost/", "flow/IT/Televideo/", "flow/EN
 
 def main():
     # giorno di cui visualizzare la tabella di somiglianza tra notizie
-    day = "2024-03-25"
+    day = "2024-03-23"
     # editions = get_editions(editions_name)
     # flows = get_editions(flows_name)
-    editions_title = get_news(editions_name, day)
-    flows_title = get_news(flows_name, day)
+    editions_title = get_news(editions_name, day, True)
+    flows_title = get_news(flows_name, day, True)
 
     # editions_simils, edit_names = get_simm_list("editions_simils.txt")
     # flows_simils, flow_names = get_simm_list("flows_simils.txt")
     editions_simils_title, edit_names_title = get_simils_by_title("editions_simils.json", day)
-    flows_simils_title, flow_names_title = get_simils_by_title("flows_simils.json", day)
+    flows_simils_title, flow_names_title = get_simils_by_title("editions_simils.json", day)
 
     # get_simm_table(editions, editions_simils, edit_names, True)
     # get_simm_table(flows, flows_simils, flow_names, False)
@@ -65,8 +66,9 @@ def get_editions(to_get):
     return to_ret
 
 
-def get_news(to_get, day):
+def get_news(to_get, day, exclude_exists=False):
     titles = []
+    inserted_titles = []
     for subdir in to_get:
         directory = "../newScraping/collectedNews/" + subdir
         for jfile in os.scandir(directory):
@@ -85,8 +87,12 @@ def get_news(to_get, day):
             if curr_date == day:
                 for new in curr_news:
                     if jfile.name[0] == 'e' or jfile.name[0] == 'c':
-                        titles.append(
-                            new['en_title'] + "___in edition___" + new['source'] + "/" + string_format(new['filename']))
+                        ctrl_str = new['en_title'] + '__' + new['source']
+                        if (exclude_exists == False or inserted_titles.count(ctrl_str) == 0):
+                            titles.append(
+                                new['en_title'] + "___in edition___" + new['source'] + "/" + string_format(
+                                    new['filename']))
+                            inserted_titles.append(ctrl_str)
     return titles
 
 
