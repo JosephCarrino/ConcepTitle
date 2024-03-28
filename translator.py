@@ -6,7 +6,9 @@ from argostranslate import translate
 import copy
 import time
 
-mysubdirs = ['edition/DE', 'edition/FR', 'edition/EN', 'edition/IT', 'flow/DE', 'flow/EN', 'flow/IT', 'flow/PT']
+mysubdirs = ['edition/DE', 'edition/FR', 'edition/EN',
+             # 'edition/IT',
+             'flow/DE', 'flow/EN', 'flow/IT', 'flow/PT']
 edition_str_len = 15
 BASE_DIR = f"../Newscraping/collectedNews/"
 
