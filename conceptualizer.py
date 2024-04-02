@@ -4,7 +4,14 @@ import json
 import os
 import spacy
 
-my_subdirs = ['edition/DE', 'edition/FR', 'edition/EN', 'edition/IT', 'flow/DE', 'flow/EN', 'flow/IT', 'flow/PT']
+my_subdirs = ['edition/DE',
+              'edition/FR',
+              'edition/EN',
+              #'edition/IT',
+              'flow/DE',
+              'flow/EN',
+              'flow/IT',
+              'flow/PT']
 
 nlp = spacy.load("en_core_web_sm")
 
