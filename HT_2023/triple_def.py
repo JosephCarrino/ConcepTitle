@@ -5,8 +5,9 @@
 import json
 import os
 import random
-from typing import Optional, Union, List, Tuple
-from utils import snapped_news_by_source, has_similar_in_snapshot, snapped_news_in_range, Snapshot, similar_in_snapshot_linked, similar_in_snapshot_spacy
+from typing import Union, List
+from utils import snapped_news_by_source, has_similar_in_snapshot, snapped_news_in_range, Snapshot, \
+    similar_in_snapshot_linked, similar_in_snapshot_spacy
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -23,7 +24,6 @@ to_check_dir = f"{repo_dir}/{snap_dir}/{news_snap}"
 # For real example:
 repo_dir = f"{BASE_DIR}\\..\\fulltext\\translated"
 ALL_NEWS_OUTLETS = ["IT\\ilPost", "ES\\ABC", "FR\\France24", "EN\\BBC", "DE\\Spiegel", "IT\\ANSA_Esteri"]
-
 
 # Trying Swissinfo
 # repo_dir = f"{BASE_DIR}\\..\\..\\SwissScrape\\scraped_items"
@@ -44,19 +44,21 @@ def main():
     to_check = main_news_getter(to_check_dir)
     skip_common_excl(to_check, check_dir)
 
-def skip_common_excl(to_check: dict, check_dir: str, simil_cache: dict = {}, in_range: bool = False, start_date: str = None, end_date: str = None) -> Union[str, List[str]]:
+
+def skip_common_excl(to_check: dict, check_dir: str, simil_cache: dict = {}, in_range: bool = False,
+                     start_date: str = None, end_date: str = None) -> Union[str, List[str]]:
     main_snapped = []
     if in_range:
         main_snapped, _ = snapped_news_in_range(f"{repo_dir}/{check_dir}", start_date, end_date, nlpy=NLPY)
     else:
-        main_snapped = snapped_news_by_source(f"{repo_dir}/{check_dir}", nlpy = NLPY)
+        main_snapped = snapped_news_by_source(f"{repo_dir}/{check_dir}", nlpy=NLPY)
     if not has_similar_in_snapshot(to_check, main_snapped, simil_fun=SIMIL_FUN):
         print("skipped")
         print([])
         return "skipped", []
     covering_list = []
     for dir in ALL_NEWS_OUTLETS:
-        snapped = snapped_news_by_source(f"{repo_dir}/{dir}", nlpy = NLPY)
+        snapped = snapped_news_by_source(f"{repo_dir}/{dir}", nlpy=NLPY)
         if has_similar_in_snapshot(to_check, snapped, simil_cache, simil_fun=SIMIL_FUN):
             covering_list.append(dir)
 
@@ -72,17 +74,17 @@ def skip_common_excl(to_check: dict, check_dir: str, simil_cache: dict = {}, in_
 
 
 def snapshots_in_range(
-    in_range: bool,
-    start_date: int,
-    end_date: int,
-    nlpy: bool = NLPY,
+        in_range: bool,
+        start_date: int,
+        end_date: int,
+        nlpy: bool = NLPY,
 ) -> dict[str, Snapshot]:
     snapshots = {}
     for news_outlet in ALL_NEWS_OUTLETS:
         if in_range:
             snapshot, _ = snapped_news_in_range(f"{repo_dir}/{news_outlet}", start_date, end_date, nlpy=nlpy)
         else:
-            snapshot = snapped_news_by_source(f"{repo_dir}/{news_outlet}", nlpy = nlpy)
+            snapshot = snapped_news_by_source(f"{repo_dir}/{news_outlet}", nlpy=nlpy)
 
         snapshots[news_outlet] = snapshot
 
@@ -90,9 +92,9 @@ def snapshots_in_range(
 
 
 def sce_classify(
-    news_item_to_check: dict,
-    simil_cache: dict,
-    snapshots: dict[str, Snapshot],
+        news_item_to_check: dict,
+        simil_cache: dict,
+        snapshots: dict[str, Snapshot],
 ) -> tuple[list[str], list[str], list[str]]:
     sce_list = []
     for news_outlet, snapshot in snapshots.items():
@@ -120,10 +122,11 @@ def sce_classify(
 def main_news_getter(dir: str) -> dict:
     with open(dir, "r", encoding="utf-8") as f:
         news = json.load(f)
-    n_new = random.randint(0, len(news)-1)
+    n_new = random.randint(0, len(news) - 1)
     n_new = 0
     single_news = news[n_new]
     return single_news
+
 
 if __name__ == "__main__":
     main()

@@ -1,58 +1,68 @@
 #!/usr/bin/env python
 
 import json
-import sys
 import os
-import errno
 import spacy
 
-# The translated news base directory
-BASE_DIR = f"./translated"
+my_subdirs = ['edition/DE',
+              'edition/FR',
+              'edition/EN',
+              'flow/DE',
+              'flow/EN',
+              'flow/IT',
+              'flow/PT']
 
-# The output base directory
-NER_DIR = f"./NER"
+nlp = spacy.load("en_core_web_sm")
 
-# The fields' name we want to NER
+BASE_DIR = "../Newscraping/collectedNews/"
+
+PREV_PREFIX = 'conc_'
+NEXT_PREFIX = 'ner_'
+ENGLISH_PREFIX = 'en_'
 FIELDS_TO_NLP = ['title',
                  'subtitle',
                  'content'
                  ]
 
-# The english-to translated fields' prefix
-ENGLISH_PREFIX = "en_"
-
-
 def main():
-    if len(sys.argv) < 2:
-        raise Exception("Too few arguments.")
-    if len(sys.argv) > 2 and sys.argv[2] == '-s':
-        full_recognizer(sys.argv[1], 1)
-    else:
-        full_recognizer(sys.argv[1])
+    for my_subdir in my_subdirs:
+        pos_tagger(getting_news(my_subdir), my_subdir)
 
+def pos_tagger(editions, my_subdir, sentiment = 0):
+    to_ret = []
+    for nat_ed in editions:
+        for edition in nat_ed:
+            recognized = news_recognizer(edition, nlp, sentiment)
+            to_ret.append(recognized)
+            if len(edition) > 0:
+                prev_prefix_len = len(PREV_PREFIX)
+                filepath = f"{BASE_DIR}{my_subdir}/{edition[0]['source']}/{NEXT_PREFIX}{edition[0]['filename'][len(NEXT_PREFIX) + prev_prefix_len:]}"
+                old_filepath = f"{BASE_DIR}{my_subdir}/{edition[0]['source']}/{PREV_PREFIX}{edition[0]['filename'][len(NEXT_PREFIX) + prev_prefix_len:]}"
+                print(filepath)
+                os.remove(old_filepath)
+                with open(filepath, "w") as f:
+                    json.dump(edition, f, ensure_ascii=False, indent=4)
+                    f.write("\n")
+    return to_ret
 
-def full_recognizer(subdir, sentiment=0):
-    to_recognize = news_getter(subdir)
-    nlp = spacy_setup()
-    if sentiment:
-        nlp.add_pipe('spacytextblob')
-    recognized = news_recognizer(to_recognize, nlp, sentiment)
-    jsonizer(recognized, subdir)
-
-
-def spacy_setup():
-    return spacy.load('en_core_web_sm')
-
-
-def news_getter(subdir):
-    to_get_dir = f"{BASE_DIR}/{subdir}"
-    to_get = {}
-    with open(to_get_dir, "r") as f:
-        try:
-            to_get = json.load(f)
-        except:
-            raise Exception("Could not read file from the given directory: " + to_get_dir + ".")
-    return to_get
+def getting_news(my_subdir):
+    directory = f"{BASE_DIR}{my_subdir}"
+    nat_ed = []
+    for subdir in os.scandir(directory):
+        newspaper = subdir.name
+        editions = []
+        for news in os.scandir(subdir):
+            if (news.name[0:len(PREV_PREFIX)] == PREV_PREFIX):
+                filepath = f"{directory}/{newspaper}/{news.name}"
+                with open(filepath, "r+") as f:
+                    curr_news = json.load(f)
+                edition = []
+                for new in curr_news:
+                    new['filename'] = NEXT_PREFIX + news.name
+                    edition.append(new)
+                editions.append(edition)
+        nat_ed.append(editions)
+    return nat_ed
 
 
 def news_recognizer(to_reco, nlp, sentiment=0):
@@ -124,19 +134,6 @@ def ner_object_creator(info):
     to_ret['info'] = spacy.explain(info.label_)
 
     return to_ret
-
-
-def jsonizer(translated, subdir):
-    to_json_dir = f"{NER_DIR}/{subdir}"
-    if not os.path.exists(os.path.dirname(to_json_dir)):
-        try:
-            os.makedirs(os.path.dirname(to_json_dir))
-        except OSError as exc:
-            if exc.errno != errno.EEXIST:
-                raise
-    with open(to_json_dir, "w") as f:
-        json.dump(translated, f, indent=4, ensure_ascii=False)
-        f.write("\n")
 
 
 if __name__ == "__main__":
