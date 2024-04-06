@@ -99,6 +99,7 @@ def news_translator(subdir_n, translators):
                 print(to_trans_dir)
                 os.remove(to_trans_dir)
                 translated_dir = f"{directory}/{newspaper}/en_{news.name}"
+                print("Translated file: " + translated_dir)
                 with open(translated_dir, "w") as f:
                     json.dump(curr_edit, f, indent=4, ensure_ascii=False)
                     f.write("\n")
