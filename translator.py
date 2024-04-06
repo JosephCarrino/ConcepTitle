@@ -73,7 +73,7 @@ def news_translator(subdir_n, translators):
     for subdir in os.scandir(directory):
         newspaper = subdir.name
         for news in os.scandir(subdir):
-            if news.name[0:2] != "en" and news.name[0:2] != "co":
+            if news.name[0:2] != "en" and news.name[0:2] != "co" and news.name[0:2] != "ne":
                 to_trans_dir = f"{directory}/{newspaper}/{news.name}"
                 with open(to_trans_dir, "r") as f:
                     try:
