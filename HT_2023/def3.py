@@ -1,6 +1,6 @@
 # 3. Given two newspapers A and B, how much does A skip with regards to B?
 
-data_days = ["2022-05-11", "2022-05-12"]
+data_days = ["2024-04-08", "2024-04-09"]
 sources_dir_A = ["ANSA_Politica"]
 sources_dir_B = ["AGI_Politica"]
 
@@ -18,10 +18,10 @@ def skip_between(source_A, source_B):
 
 from utils import snapped_news_by_source, has_similar_in_snapshot
 
-main_dir = "../fulltext/NER/flow/IT"
+main_dir = "../../Newscraping/collectedNews/flow/IT"
 
 def main2():
-    skip_between_day(sources_dir_A, sources_dir_B, "2022-05-11")
+    skip_between_day(sources_dir_A, sources_dir_B, "2024-04-09")
 
 def skip_between_day(source_A: str, source_B: str, day: str ) -> float:
     skipped = 0

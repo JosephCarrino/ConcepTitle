@@ -4,14 +4,14 @@ from os import path
 from typing import Union
 from utils import date_to_epoch, snapped_news_in_range, remove_duplicates, has_similar_in_snapshot, SNAP_RATE
 
-start_time = "2022-05-11 01:55:20"
-end_time = "2022-05-12 12:55:20"
+start_time = "2024-04-09 00:00:00"
+end_time = "2024-04-09 18:00:00"
 sources = []
 
 
 FILE_DIR = path.dirname(__file__)
 
-main_dir = f"{FILE_DIR}/../fulltext/NER/flow"
+main_dir = "../../Newscraping/collectedNews/flow/IT"
 source = "AGI_Politica"
 
 def main():

@@ -22,8 +22,8 @@ check_dir = "ANSA_Politica"
 to_check_dir = f"{repo_dir}/{snap_dir}/{news_snap}"
 
 # For real example:
-repo_dir = f"{BASE_DIR}\\..\\fulltext\\translated"
-ALL_NEWS_OUTLETS = ["IT\\ilPost", "ES\\ABC", "FR\\France24", "EN\\BBC", "DE\\Spiegel", "IT\\ANSA_Esteri"]
+repo_dir = f"{BASE_DIR}/../fulltext/translated"
+ALL_NEWS_OUTLETS = ["IT/ilPost", "ES/ABC", "FR/France24", "EN/BBC", "DE/Spiegel", "IT/ANSA_Esteri"]
 
 # Trying Swissinfo
 # repo_dir = f"{BASE_DIR}\\..\\..\\SwissScrape\\scraped_items"

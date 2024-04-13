@@ -10,7 +10,7 @@ warnings.filterwarnings("ignore")
 UTILS_DIR = path.dirname(__file__)
 
 nlp = spacy.load("en_core_web_sm")
-main_dir = f"{UTILS_DIR}/../fulltext/NER/flow"
+main_dir = f"{UTILS_DIR}/../../Newscraping/collectedNews/flow/IT"
 
 COSINE_THRESHOLD = 0.90
 
@@ -27,7 +27,7 @@ def snapped_news_by_source(dir: str, nlpy: bool = True) -> List[dict]:
             with open(f"{dir}/{file}", "r", encoding="utf-8") as f:
                 news = json.load(f)
                 for new in news:
-                    if new["title"] not in title_list:
+                    if new["title"] not in title_list and "en_content" in new:
                         if nlpy:
                             new["cont_nlp"] = nlp(new["en_content"])
                         title_list.append(new["title"])
@@ -39,7 +39,7 @@ def snapped_news_by_date(date: str, nlpy: bool = True)-> List[dict]:
     news_list = []
     for subdir in os.listdir(main_dir):
         for file in os.listdir(f"{main_dir}/{subdir}"):
-            if file.endswith(".json") and file.startswith(date):
+            if file.endswith(".json") and date in file:
                 with open(f"{main_dir}/{subdir}/{file}", "r") as f:
                     news = json.load(f)
                     for new in news:
@@ -81,6 +81,7 @@ def similar_in_snapshot_spacy(main_news, news_snapshot, simil_cache):
     # if not yet NLP'd, do it now.
     if "cont_nlp" not in main_news:
         main_news["cont_nlp"] = nlp(main_news["en_content"])
+
     for news_item in news_snapshot:
         title1 = max(main_news["title"], news_item["title"])
         title2 = min(main_news["title"], news_item["title"])
@@ -93,7 +94,7 @@ def similar_in_snapshot_spacy(main_news, news_snapshot, simil_cache):
 
         # "cont_nlp" = content, NLP processed.
         # if not yet NLP'd, do it now.
-        if "cont_nlp" not in news_item:
+        if "cont_nlp" not in news_item and "en_content" in news_item:
             news_item["cont_nlp"] = nlp(news_item["en_content"])
 
         if is_similar_nlpied(main_news, news_item, COSINE_THRESHOLD):
@@ -102,12 +103,7 @@ def similar_in_snapshot_spacy(main_news, news_snapshot, simil_cache):
 
         simil_cache[key] = False
     return False
-def has_similar_in_snapshot(
-    main_news: dict,
-    news_snapshot: Snapshot,
-    simil_cache: dict = {},
-    simil_fun: any = similar_in_snapshot_spacy,
-) -> bool:
+def has_similar_in_snapshot(main_news: dict, news_snapshot: Snapshot, simil_cache: dict = {}, simil_fun: any = similar_in_snapshot_spacy) -> bool:
     if len(news_snapshot) == 0:
         return False
 
@@ -168,7 +164,7 @@ def remove_duplicates(news: List[dict], similarity_in_snapshot: any = similar_in
     for i in range(len(news_list)):
         article_A = news_list[i]
         if i < len(news_list)-1:
-            if not has_similar_in_snapshot(article_A, news_list[i + 1:], similarity_in_snapshot):
+            if not has_similar_in_snapshot(article_A, news_list[i + 1:], {}, similarity_in_snapshot): #MISSING {}
                 to_ret.append(article_A)
     
     return to_ret

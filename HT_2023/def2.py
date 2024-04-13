@@ -6,9 +6,9 @@ import os
 from utils import snapped_news_by_source, snapped_news_by_date, has_similar_in_snapshot, remove_duplicates
 
 sources_dir = ["ANSA_Politica", "ANSA_Cronaca", "ANSA_Esteri"]
-main_dir = "../fulltext/NER/flow/IT"
+main_dir = "../../Newscraping/collectedNews/flow/IT"
 
-check_date = "2022-05-11"
+check_date = "2024-04-10"
 
 
 def main():
@@ -18,7 +18,8 @@ def skip_usually(source: str, day: str) -> float:
     skipped = 0
     published_in_date_by_source = []
     for source in sources_dir:
-        temp = snapped_news_by_source(f"{main_dir}/{source}")
+        relative_directory = f"{main_dir}/{source}"
+        temp = snapped_news_by_source(relative_directory)
         # To use only in this case, in general we should use all news
         for article in temp:
             if article["date"] == day:
