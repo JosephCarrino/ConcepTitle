@@ -16,7 +16,7 @@ nlp = spacy.load("en_core_web_sm")
 
 BASE_DIR = "../Newscraping/collectedNews/"
 
-PREV_PREFIX = 'conc_'
+PREV_PREFIX = 'en_'
 NEXT_PREFIX = 'ner_'
 ENGLISH_PREFIX = 'en_'
 FIELDS_TO_NLP = ['title',
