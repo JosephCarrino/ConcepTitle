@@ -14,7 +14,7 @@ main_dir = f"{UTILS_DIR}/../../Newscraping/collectedNews/flow/IT"
 
 COSINE_THRESHOLD = 0.90
 
-SNAP_RATE = 15
+SNAP_RATE = 60
 
 Snapshot = List[dict]
 # Snapshot = list[dict]

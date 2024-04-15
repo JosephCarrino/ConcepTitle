@@ -28,7 +28,7 @@ def skipped_by(to_check: dict) -> List[str]:
     for skip_dir in skip_dirs:
         snapped = snapped_news_by_source(f"{main_dir}/{skip_dir}", SENTIMENT_ANALYSIS)
         has_similar = has_similar_in_snapshot(to_check, snapped)
-        if not has_similar: # Perché qui c'è un not?
+        if not has_similar:
             skipping_sources.append(skip_dir)
     print(f"Sources which skipped the given news: {skipping_sources}")
     return skipping_sources
