@@ -12,9 +12,9 @@ my_subdirs = ['edition/DE',
               'flow/IT',
               'flow/PT']
 
-nlp = spacy.load("en_core_web_sm")
+nlp = spacy.load("../en_core_web_sm")
 
-BASE_DIR = "../Newscraping/collectedNews/"
+BASE_DIR = "../../Newscraping/collectedNews/"
 
 PREV_PREFIX = 'en_'
 NEXT_PREFIX = 'ner_'
