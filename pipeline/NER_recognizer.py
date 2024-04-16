@@ -2,6 +2,8 @@
 
 import json
 import os
+import sys
+
 import spacy
 
 my_subdirs = ['edition/DE',
@@ -16,7 +18,7 @@ my_subdirs = ['edition/DE',
 
 nlp = spacy.load("../en_core_web_sm")
 
-BASE_DIR = "../../Newscraping/collectedNews/"
+BASE_DIR = "../../Newscraping/collectedNews/flow"
 
 PREV_PREFIX = 'en_'
 NEXT_PREFIX = 'ner_'
@@ -40,6 +42,8 @@ def pos_tagger(editions, my_subdir, sentiment = 0):
                 prev_prefix_len = len(PREV_PREFIX)
                 filepath = f"{BASE_DIR}{my_subdir}/{edition[0]['source']}/{NEXT_PREFIX}{edition[0]['filename'][len(NEXT_PREFIX) + prev_prefix_len:]}"
                 old_filepath = f"{BASE_DIR}{my_subdir}/{edition[0]['source']}/{PREV_PREFIX}{edition[0]['filename'][len(NEXT_PREFIX) + prev_prefix_len:]}"
+                filepath = filepath.replace(' ', '')
+                old_filepath = old_filepath.replace(' ', '')
                 print(filepath)
                 os.remove(old_filepath)
                 with open(filepath, "w") as f:
