@@ -70,7 +70,7 @@ def article_translator(article, translator, isEn=False):
 
     if "en_title" in article:
         article['already_done'] = True #Skippa la traduzione
-        pass
+        return article
 
     if not isEn and article['language'] != "EN" and article['language'] != "en":
         article['en_title'] = translator.translate(article['title'])
