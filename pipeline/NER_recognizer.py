@@ -28,66 +28,46 @@ FIELDS_TO_NLP = ['title',
                  'content'
                  ]
 
+
 def main():
     for my_subdir in my_subdirs:
-        pos_tagger(getting_news(my_subdir), my_subdir)
-
-def pos_tagger(editions, my_subdir, sentiment = 0):
-    to_ret = []
-    for nat_ed in editions:
-        for edition in nat_ed:
-            recognized = news_recognizer(edition, nlp, sentiment)
-            to_ret.append(recognized)
-            if len(edition) > 0:
-                if edition[0]['source'] == 'CNN':
-                    edition[0]['source'] = 'CNN_Asia'
-                prev_prefix_len = len(PREV_PREFIX)
-                filepath = f"{BASE_DIR}{my_subdir}/{edition[0]['source']}/{NEXT_PREFIX}{edition[0]['filename'][len(NEXT_PREFIX) + prev_prefix_len:]}"
-                old_filepath = f"{BASE_DIR}{my_subdir}/{edition[0]['source']}/{PREV_PREFIX}{edition[0]['filename'][len(NEXT_PREFIX) + prev_prefix_len:]}"
-                filepath = filepath.replace(' ', '')
-                old_filepath = old_filepath.replace(' ', '')
-
-                try:
-                    os.remove(old_filepath)
-                    print(filepath)
-                except:
-                    pass
-                try:
-                    old_filepath = old_filepath.replace(PREV_PREFIX, '')
-                    os.remove(old_filepath)
-                    print(filepath)
-                except:
-                    pass
-                with open(filepath, "w") as f:
-                    json.dump(edition, f, ensure_ascii=False, indent=4)
+        for newspaper in os.scandir(BASE_DIR + my_subdir):
+            for edition in os.scandir(BASE_DIR + my_subdir + "/" + newspaper.name):
+                old_file = BASE_DIR + my_subdir + "/" + newspaper.name + "/" + edition.name
+                new_file = BASE_DIR + my_subdir + "/" + newspaper.name + "/" + NEXT_PREFIX + edition.name
+                news = getting_news(old_file)
+                if len(news) == 0:
+                    continue
+                news = news_recognizer(news, nlp)
+                if len(news) == 0:
+                    continue
+                with open(new_file, "w") as f:
+                    json.dump(news, f, indent=4, ensure_ascii=False)
                     f.write("\n")
-    return to_ret
+                os.remove(old_file)
 
-def getting_news(my_subdir):
-    directory = f"{BASE_DIR}{my_subdir}"
-    nat_ed = []
-    for subdir in os.scandir(directory):
-        newspaper = subdir.name
-        editions = []
-        for news in os.scandir(subdir):
-            if (news.name[0:len(PREV_PREFIX)] == PREV_PREFIX):
-                filepath = f"{directory}/{newspaper}/{news.name}"
-                with open(filepath, "r+") as f:
-                    curr_news = json.load(f)
-                edition = []
-                for new in curr_news:
-                    new['filename'] = NEXT_PREFIX + news.name
-                    edition.append(new)
-                editions.append(edition)
-        nat_ed.append(editions)
-    return nat_ed
+
+def getting_news(file: str):
+    news = []
+    with open(file, "r+") as f:
+        curr_news = json.load(f)
+        for new in curr_news:
+            if "title_NER" in new:
+                return []
+            else:
+                news.append(new)
+    return news
 
 
 def news_recognizer(to_reco, nlp, sentiment=0):
+    out = []
     for article in to_reco:
         if f"{ENGLISH_PREFIX}title" in article:
             article = article_recognizer(article, nlp, sentiment)
-    return to_reco
+            out.append(article)
+        else:
+            return []
+    return out
 
 
 def article_recognizer(article, nlp, sentiment=0):
