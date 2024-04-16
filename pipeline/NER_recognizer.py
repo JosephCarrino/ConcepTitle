@@ -34,6 +34,7 @@ def main():
         for newspaper in os.scandir(BASE_DIR + my_subdir):
             for edition in os.scandir(BASE_DIR + my_subdir + "/" + newspaper.name):
                 old_file = BASE_DIR + my_subdir + "/" + newspaper.name + "/" + edition.name
+                print(f"NER:{old_file}")
                 new_file = BASE_DIR + my_subdir + "/" + newspaper.name + "/" + NEXT_PREFIX + edition.name
                 news = getting_news(old_file)
                 if len(news) == 0:
@@ -45,6 +46,7 @@ def main():
                     json.dump(news, f, indent=4, ensure_ascii=False)
                     f.write("\n")
                 os.remove(old_file)
+                print(f"Completed:{new_file}")
 
 
 def getting_news(file: str):
