@@ -25,6 +25,7 @@ def main():
         for lang in os.scandir(BASE_DIR):
             for newspaper in os.scandir(f"{BASE_DIR}/{lang.name}"):
                 for snapshot in os.scandir(f"{BASE_DIR}/{lang.name}/{newspaper.name}"):
+                    print(f"I'm going to translate {lang.name}/{newspaper.name}/{snapshot.name}")
                     full_translator(f"{lang.name}/{newspaper.name}/{snapshot.name}")
     full_translator(sys.argv[1])
 
