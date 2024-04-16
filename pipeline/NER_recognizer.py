@@ -46,8 +46,18 @@ def pos_tagger(editions, my_subdir, sentiment = 0):
                 old_filepath = f"{BASE_DIR}{my_subdir}/{edition[0]['source']}/{PREV_PREFIX}{edition[0]['filename'][len(NEXT_PREFIX) + prev_prefix_len:]}"
                 filepath = filepath.replace(' ', '')
                 old_filepath = old_filepath.replace(' ', '')
-                print(filepath)
-                os.remove(old_filepath)
+
+                try:
+                    os.remove(old_filepath)
+                    print(filepath)
+                except:
+                    pass
+                try:
+                    old_filepath = old_filepath.replace(PREV_PREFIX, '')
+                    os.remove(old_filepath)
+                    print(filepath)
+                except:
+                    pass
                 with open(filepath, "w") as f:
                     json.dump(edition, f, ensure_ascii=False, indent=4)
                     f.write("\n")
