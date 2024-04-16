@@ -39,6 +39,8 @@ def pos_tagger(editions, my_subdir, sentiment = 0):
             recognized = news_recognizer(edition, nlp, sentiment)
             to_ret.append(recognized)
             if len(edition) > 0:
+                if edition[0]['source'] == 'CNN':
+                    edition[0]['source'] = 'CNN_Asia'
                 prev_prefix_len = len(PREV_PREFIX)
                 filepath = f"{BASE_DIR}{my_subdir}/{edition[0]['source']}/{NEXT_PREFIX}{edition[0]['filename'][len(NEXT_PREFIX) + prev_prefix_len:]}"
                 old_filepath = f"{BASE_DIR}{my_subdir}/{edition[0]['source']}/{PREV_PREFIX}{edition[0]['filename'][len(NEXT_PREFIX) + prev_prefix_len:]}"
