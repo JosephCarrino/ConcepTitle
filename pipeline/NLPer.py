@@ -46,7 +46,7 @@ def make_nlp(filename: str, dir: str):
 
     filename = filename.replace(dir, '')
     filename = filename.replace(PREV_PREFIX, NEXT_PREFIX)
-    new_file = f"{dir}/{filename}"
+    new_file = f"{dir}{filename}"
 
     with open(new_file, "w") as f:
         json.dump(output, f, indent=4, ensure_ascii=False)
