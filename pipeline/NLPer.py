@@ -33,13 +33,13 @@ def make_nlp(filename: str, dir: str):
     for article in snapshot:
         if "cont_nlp" in article or "en_title" not in article or "title_NER" not in article:
             return output
-        if "en_content" not in article:
+        if "en_content" not in article or article["en_content"] is None:
             article['en_content'] = ""
         article['cont_nlp'] = nlp(article['en_content']).to_json()
-        if "en_title" not in article:
+        if "en_title" not in article or article["en_title"] is None:
             article['en_title'] = ""
         article['title_nlp'] = nlp(article['en_title']).to_json()
-        if "en_subtitle" not in article:
+        if "en_subtitle" not in article or article["en_subtitle"] is None:
             article['en_subtitle'] = ""
         article['subtitle_nlp'] = nlp(article['en_subtitle']).to_json()
         output.append(article)
