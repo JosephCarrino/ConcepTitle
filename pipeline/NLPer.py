@@ -53,7 +53,6 @@ def make_nlp(filename: str, dir: str):
         json.dump(output, f, indent=4, ensure_ascii=False)
     os.remove(old)
     print(f"Done {new_file}")
-    exit(1)
 
 
 if __name__ == "__main__":
