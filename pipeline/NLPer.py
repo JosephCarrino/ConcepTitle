@@ -31,7 +31,7 @@ def make_nlp(filename: str, dir: str):
     with open(filename, "r", encoding="utf-8") as f:
         snapshot = json.load(f)
     for article in snapshot:
-        if "cont_nlp" in article or "en_title" not in article or "title_NER" not in article:
+        if "cont_nlp" in article or "en_title" not in article or "content_NER" not in article:
             print(f"Skipped {filename}")
             return output
         if "en_content" not in article or article["en_content"] is None:
