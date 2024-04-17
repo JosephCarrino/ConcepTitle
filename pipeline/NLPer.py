@@ -21,7 +21,6 @@ def main():
                 for snapshot in os.scandir(f"{BASE_DIR}/{lang.name}/{newspaper.name}"):
                     print(f"I'm going to make NLP {lang.name}/{newspaper.name}/{snapshot.name}")
                     make_nlp(f"{BASE_DIR}/{lang.name}/{newspaper.name}/{snapshot.name}", f"{BASE_DIR}/{lang.name}/{newspaper.name}")
-                    print(f"Made NLP of {lang.name}/{newspaper.name}/{snapshot.name}")
 
 
 def make_nlp(filename: str, dir: str):
@@ -33,6 +32,7 @@ def make_nlp(filename: str, dir: str):
         snapshot = json.load(f)
     for article in snapshot:
         if "cont_nlp" in article or "en_title" not in article or "title_NER" not in article:
+            print(f"Skipped {filename}")
             return output
         if "en_content" not in article or article["en_content"] is None:
             article['en_content'] = ""
@@ -52,7 +52,8 @@ def make_nlp(filename: str, dir: str):
     with open(new_file, "w") as f:
         json.dump(output, f, indent=4, ensure_ascii=False)
     os.remove(old)
-    exit()
+    print(f"Done {new_file}")
+    exit(1)
 
 
 if __name__ == "__main__":
