@@ -28,6 +28,7 @@ def make_nlp(filename: str, dir: str):
     snapshot = []
     output = []
 
+    old = filename
     with open(filename, "r", encoding="utf-8") as f:
         snapshot = json.load(f)
     for article in snapshot:
@@ -50,6 +51,8 @@ def make_nlp(filename: str, dir: str):
 
     with open(new_file, "w") as f:
         json.dump(output, f, indent=4, ensure_ascii=False)
+    os.remove(old)
+    exit()
 
 
 if __name__ == "__main__":
