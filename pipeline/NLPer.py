@@ -1,14 +1,10 @@
 #!/usr/bin/env python
 
 import json
-from argostranslate import package, translate
 import sys
 import os
-import errno
 
 import spacy
-from spacy.tokens import DocBin, Doc
-import jsonpickle
 
 # The scraped news base directory
 BASE_DIR = f"../../Newscraping/collectedNews/flow"
