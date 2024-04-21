@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 #FILE PERICOLOSO - NON USATELO - RICHIEDE TROPPO SPAZIO SU DISCO
-exit()
 
 import json
 import sys
@@ -20,7 +19,8 @@ def main():
             for newspaper in os.scandir(f"{BASE_DIR}/{lang.name}"):
                 for snapshot in os.scandir(f"{BASE_DIR}/{lang.name}/{newspaper.name}"):
                     print(f"I'm going to remove NLP from {lang.name}/{newspaper.name}/{snapshot.name}")
-                    del_nlp(f"{BASE_DIR}/{lang.name}/{newspaper.name}/{snapshot.name}", f"{BASE_DIR}/{lang.name}/{newspaper.name}")
+                    if PREV_PREFIX in snapshot.name:
+                        del_nlp(f"{BASE_DIR}/{lang.name}/{newspaper.name}/{snapshot.name}", f"{BASE_DIR}/{lang.name}/{newspaper.name}")
 
 
 def removeKey(dictionary, key):
@@ -35,9 +35,6 @@ def del_nlp(filename: str, dir: str):
     with open(filename, "r", encoding="utf-8") as f:
         snapshot = json.load(f)
     for article in snapshot:
-        # cont_nlp
-        # title_nlp
-        # subtitle_nlp
         if "cont_nlp" in article:
             article = removeKey(article, "cont_nlp")
         if "title_nlp" in article:
