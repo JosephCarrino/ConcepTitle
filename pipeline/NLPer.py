@@ -19,12 +19,11 @@ def main():
         for lang in os.scandir(BASE_DIR):
             for newspaper in os.scandir(f"{BASE_DIR}/{lang.name}"):
                 for snapshot in os.scandir(f"{BASE_DIR}/{lang.name}/{newspaper.name}"):
-                    print(f"I'm going to make NLP {lang.name}/{newspaper.name}/{snapshot.name}")
-                    make_nlp(f"{BASE_DIR}/{lang.name}/{newspaper.name}/{snapshot.name}", f"{BASE_DIR}/{lang.name}/{newspaper.name}")
+                    print(f"I'm going to make NLP EN/RioTimes/{snapshot.name}")
+                    make_nlp(f"{BASE_DIR}/EN/RioTimes/{snapshot.name}", f"{BASE_DIR}/EN/RioTimes")
 
 
 def make_nlp(filename: str, dir: str):
-    snapshot = []
     output = []
 
     old = filename
