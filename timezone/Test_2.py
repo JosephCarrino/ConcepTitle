@@ -41,9 +41,6 @@ def main():
     no_processor = multiprocessing.cpu_count()
     no_processor = max(no_processor - 2, 1)
 
-    for a in articles_a:
-        a = calculate_nlp(a)
-
     with Pool(no_processor) as p:
         articles_a = p.map(calculate_nlp, articles_a)
 
