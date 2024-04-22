@@ -1,4 +1,4 @@
-# Given two newspapers check the number of news similar
+# Given two newspapers returns the simils articles with name and links
 import multiprocessing
 from multiprocessing import Process
 from utils import extract_articles, calculate_nlp, calculate_similarity
@@ -54,6 +54,8 @@ def main():
                 simils.append((article_a, article_b, percentage))
 
     print(len(simils))
+    for simil_triple in simils:
+        pass # TODO CONTINUE
 
 
 if __name__ == '__main__':
