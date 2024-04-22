@@ -3,7 +3,7 @@ from datetime import datetime
 
 import spacy
 
-nlp = spacy.load("en_core_web_sm")
+nlp = spacy.load("en_core_web_trf")
 
 
 def get_newspaper_time_articles(newspaper_dir: str, date: str, start_time: str, end_time: str) -> list:

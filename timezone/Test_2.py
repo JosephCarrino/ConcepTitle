@@ -4,6 +4,8 @@ from multiprocessing import Process
 from utils import extract_articles, calculate_nlp, calculate_similarity
 from multiprocessing import Pool
 
+# python3 -m spacy download en_core_web_trf
+
 DAY = "2024-04-20"
 START_TIME = "08:00:00"
 END_TIME = "12:59:59"
@@ -38,6 +40,9 @@ def main():
     del articles
     no_processor = multiprocessing.cpu_count()
     no_processor = max(no_processor - 2, 1)
+
+    for a in articles_a:
+        a = calculate_nlp(a)
 
     with Pool(no_processor) as p:
         articles_a = p.map(calculate_nlp, articles_a)
