@@ -1,4 +1,5 @@
-# Given two newspapers returns the simils articles with name and links
+# Given two newspapers returns the simils articles with name and links IN THEIR TIMEZONES
+
 import multiprocessing
 from multiprocessing import Process
 from utils import extract_articles, calculate_nlp, calculate_similarity
@@ -9,14 +10,15 @@ DAY = "2024-04-19"
 START_TIME = "08:00:00"
 END_TIME = "13:00:00"
 
-BASE_DIR = "../Newscraping/collectedNews/flow"
-#NEWSPAPER_A = "EN/RioTimes"
-#NEWSPAPER_B = "EN/NewsComAu"
+BASE_DIR = "../../Newscraping/collectedNews/flow"
+# NEWSPAPER_A = "EN/RioTimes"
+# NEWSPAPER_B = "EN/NewsComAu"
 
-NEWSPAPER_A = "IT/ANSA_Esteri"
-NEWSPAPER_B = "IT/AGI_Esteri"
+NEWSPAPER_A = "IT/ANSA_Politica"
+NEWSPAPER_B = "IT/AGI_Politica"
 
-COSINE_THRESHOLD = 0.97
+# COSINE_THRESHOLD = 0.97
+COSINE_THRESHOLD = 0.985
 
 """
 Australia’s Indigenous Doubt Impact of Rights Vote - https://www.riotimesonline.com/australias-indigenous-doubt-impact-of-rights-vote/ - Ten-year-old Indigenous boy takes own life in state care, suicide prevention body says - https://www.news.com.au/lifestyle/health/mental-health/tenyearold-indigenous-boy-takes-own-life-in-state-care-suicide-prevention-body-says/news-story/85d03ee10b7574196d3ad3f27d82b7b1?from=rss-basic - 0.9840738542590833

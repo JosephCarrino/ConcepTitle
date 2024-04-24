@@ -6,7 +6,8 @@ import spacy
 nlp = spacy.load("en_core_web_lg")
 
 
-def get_newspaper_time_articles(newspaper_dir: str, date: str, start_time: str, end_time: str) -> list:
+def get_newspaper_time_articles(newspaper_dir: str, date: str, start_time: str, end_time: str,
+                                time: str = "local_time") -> list:
     output = []
     titles_captured = []
 
@@ -29,9 +30,12 @@ def get_newspaper_time_articles(newspaper_dir: str, date: str, start_time: str, 
         for article in snapshot:
             # time_obj = time.strptime()
             try:
-                local_time = article["local_time"]
+                local_time = article[time]
             except:
                 continue
+
+            local_time = local_time.replace("T", " ")
+            local_time = local_time.replace(".", ":")
             local_time = datetime.strptime(local_time, "%Y-%m-%d %H:%M:%S")
             if not start_time <= local_time <= end_time:
                 continue
@@ -46,6 +50,15 @@ def extract_articles(base_dir: str, news_paper: str, day: str, start_time: str, 
                      process_label=""):
     full_path = f"{base_dir}/{news_paper}"
     articles = get_newspaper_time_articles(full_path, day, start_time, end_time)
+    if queue != None:
+        queue.put((process_label, articles))
+        return
+    return articles
+
+def extract_articles_scraping_time(base_dir: str, news_paper: str, day: str, start_time: str, end_time: str, queue=None,
+                     process_label=""):
+    full_path = f"{base_dir}/{news_paper}"
+    articles = get_newspaper_time_articles(full_path, day, start_time, end_time, "scraping_time")
     if queue != None:
         queue.put((process_label, articles))
         return
