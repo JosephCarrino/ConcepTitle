@@ -19,11 +19,12 @@ def get_newspaper_time_articles(newspaper_dir: str, date: str, start_time: str, 
         with open(dir, "r", encoding="utf-8") as f:
             try:
                 snapshot = json.load(f)
+                if len(snapshot) == 0:
+                    pass
+                first_article = snapshot[0]
             except:
                 pass
-        if len(snapshot) == 0:
-            pass
-        first_article = snapshot[0]
+
         if "scraping_time" not in first_article or "timezone" not in first_article or "local_time" not in first_article or "en_title" not in first_article:
             continue
 
@@ -39,10 +40,14 @@ def get_newspaper_time_articles(newspaper_dir: str, date: str, start_time: str, 
             local_time = datetime.strptime(local_time, "%Y-%m-%d %H:%M:%S")
             if not start_time <= local_time <= end_time:
                 continue
-            en_title = article["en_title"]
-            if en_title not in titles_captured:
-                titles_captured.append(en_title)
-                output.append(article)
+
+            try:
+                en_title = article["en_title"]
+                if en_title not in titles_captured:
+                    titles_captured.append(en_title)
+                    output.append(article)
+            except:
+                continue
     return output
 
 
@@ -55,8 +60,9 @@ def extract_articles(base_dir: str, news_paper: str, day: str, start_time: str, 
         return
     return articles
 
+
 def extract_articles_scraping_time(base_dir: str, news_paper: str, day: str, start_time: str, end_time: str, queue=None,
-                     process_label=""):
+                                   process_label=""):
     full_path = f"{base_dir}/{news_paper}"
     articles = get_newspaper_time_articles(full_path, day, start_time, end_time, "scraping_time")
     if queue != None:
@@ -68,6 +74,13 @@ def extract_articles_scraping_time(base_dir: str, news_paper: str, day: str, sta
 def calculate_nlp(article: dict) -> dict:
     article["cont_nlp"] = nlp(article["en_content"])
     return article
+
+
+def array_nlp(article_set: list, label, queue):
+    output = []
+    for new in article_set:
+        output.append(calculate_nlp(new))
+    queue.put((output, label))
 
 
 def calculate_similarity(art_a, art_b, threshold):
