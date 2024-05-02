@@ -7,15 +7,15 @@ import sys
 import spacy
 
 my_subdirs = [
-    # 'edition/DE',
-    #'edition/FR',
-    #'edition/EN',
-    #'flow/DE',
+    'edition/DE',
+    'edition/FR',
+    'edition/EN',
+    'flow/DE',
     'flow/EN',
-    #'flow/IT',
-    #'flow/PT',
-    #'flow/FR',
-    #'flow/ES'
+    'flow/IT',
+    'flow/PT',
+    'flow/FR',
+    'flow/ES'
 ]
 
 nlp = spacy.load("../en_core_web_sm")
