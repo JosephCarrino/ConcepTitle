@@ -71,6 +71,9 @@ def main():
     for _ in processes:
         (label, articles_found) = queue.get()
         articles[label] = articles_found
+    for p in processes:
+        p.join()
+        p.close()
     print(datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
 
     print(datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
@@ -88,6 +91,9 @@ def main():
     for _ in processes:
         (articles_found, label) = queue.get()
         articles[label] = articles_found
+    for p in processes:
+        p.join()
+        p.close()
 
     print(datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
 
