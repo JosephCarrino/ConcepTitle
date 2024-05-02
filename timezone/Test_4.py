@@ -71,7 +71,7 @@ def main():
 
     for (label_a, path_a) in enumerate(NEWS_PAPERS):
         for (label_b, path_b) in enumerate(NEWS_PAPERS):
-            if label_a == label_b:
+            if label_a <= label_b:
                 continue
 
             for article_a in articles[label_a]:
