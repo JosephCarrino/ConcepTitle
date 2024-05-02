@@ -1,9 +1,9 @@
-# Given two newspapers returns the simils articles with name and links IN THEIR TIMEZONES
+# Given two newspapers returns the simils articles with name and links IN SCRAPING TIME
 
 import multiprocessing
 from datetime import datetime
 from multiprocessing import Process
-from utils import extract_articles, array_nlp, calculate_similarity
+from utils import array_nlp, calculate_similarity, extract_articles_scraping_time
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -42,7 +42,7 @@ def draw_graph(nome_giornali_data : dict, min_value: int, max_value: int):
 
     # Add some text for labels, title and custom x-axis tick labels, etc.
     ax.set_ylabel('Numero di Notizie')
-    ax.set_title('Notizie ritenute non uniche e Notizie Totali a confronto - TZ Taro')
+    ax.set_title('Notizie ritenute non uniche e Notizie Totali a confronto - Classic Taro')
     ax.set_xticks(x_arange + width, x_groups)
     ax.legend(loc='upper left', ncols=len(x_groups))
     ax.set_ylim(max(min_value - 5, 0), max_value)
@@ -60,7 +60,7 @@ def main():
     articles_not_unique_title = []
 
     for (label, path) in enumerate(NEWS_PAPERS):
-        tmp = Process(target=extract_articles, args=(BASE_DIR, path, DAY, START_TIME, END_TIME, queue, label))
+        tmp = Process(target=extract_articles_scraping_time, args=(BASE_DIR, path, DAY, START_TIME, END_TIME, queue, label))
         processes.append(tmp)
         articles.append(None)
         articles_new.append([])
