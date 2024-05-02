@@ -38,9 +38,11 @@ def main():
                 new_file = BASE_DIR + my_subdir + "/" + newspaper.name + "/" + NEXT_PREFIX + edition.name
                 news = getting_news(old_file)
                 if len(news) == 0:
+                    print(f"Skipped (1):{old_file}")
                     continue
                 news = news_recognizer(news, nlp)
                 if len(news) == 0:
+                    print(f"Skipped (2):{old_file}")
                     continue
                 with open(new_file, "w") as f:
                     json.dump(news, f, indent=4, ensure_ascii=False)

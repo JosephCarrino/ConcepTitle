@@ -7,7 +7,7 @@ from utils import extract_articles, calculate_nlp, array_nlp, calculate_similari
 
 # python3 -m spacy download en_core_web_trf
 
-DAY = "2024-04-30"
+DAY = "2024-05-01"
 START_TIME = "12:00:00"
 END_TIME = "15:00:00"
 
@@ -25,7 +25,7 @@ NEWS_PAPERS = [
     "EN/SowetanLive",
 ]
 
-COSINE_THRESHOLD = 0.97
+COSINE_THRESHOLD = 0.98
 
 
 def main():
