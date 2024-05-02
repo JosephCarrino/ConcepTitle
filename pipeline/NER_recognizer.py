@@ -72,7 +72,7 @@ def news_recognizer(to_reco, nlp, sentiment=0):
             article = article_recognizer(article, nlp, sentiment)
             out.append(article)
         else:
-            return []
+            continue
     return out
 
 
