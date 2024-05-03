@@ -146,6 +146,12 @@ def main():
             )
 
         draw_graph(nome_giornali, min_value, max_value, i, HOURS)
+        del queue
+        del articles
+        del articles_new
+        del processes
+        del articles_nro
+        del articles_not_unique_title
 
 
 if __name__ == '__main__':
