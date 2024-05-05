@@ -13,11 +13,11 @@ BASE_DIR = f"../../Newscraping/collectedNews/flow"
 LANG_TO_TRANS = {'FR': 0,
                  'DE': 1,
                  'IT': 2,
-                 'ES': 3,
+                 # 'ES': 3,
                  'en': 0,
                  'EN': 0,
-                 'pt': 4,
-                 'PT': 4}
+                 'pt': 3,
+                 'PT': 3}
 
 
 def main():
