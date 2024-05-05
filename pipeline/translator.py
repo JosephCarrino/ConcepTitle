@@ -46,6 +46,8 @@ def translators_setup():
     installed_languages = translate.get_installed_languages()
     for i in range(1, 5):
         translators[i - 1] = installed_languages[i].get_translation(installed_languages[0])
+    print(translators)
+    exit()
     return translators
 
 
