@@ -89,3 +89,20 @@ def calculate_similarity(art_a, art_b, threshold):
         return (True, similarity)
     else:
         return (False, similarity)
+
+def remove_slashes(link: str):
+    if len(link) == 0:
+        return link
+    if link[-1] == '/':
+        return remove_slashes(link[0:-1])
+    else:
+        return link
+
+def extract_homepage_articles(articles: list, home_page_links : list):
+    out = []
+
+    for article in articles:
+        if remove_slashes(article["url"]) in home_page_links:
+            out.append(article)
+
+    return out
