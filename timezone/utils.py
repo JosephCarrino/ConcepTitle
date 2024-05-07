@@ -1,5 +1,5 @@
 import os, json
-from datetime import datetime
+from datetime import datetime, timedelta
 
 import spacy
 
@@ -13,9 +13,22 @@ def get_newspaper_time_articles(newspaper_dir: str, date: str, start_time: str, 
 
     start_time = datetime.strptime(f"{date} {start_time}", "%Y-%m-%d %H:%M:%S")
     end_time = datetime.strptime(f"{date} {end_time}", "%Y-%m-%d %H:%M:%S")
+    current_date = datetime.strptime(date, "%Y-%m-%d")
+    check_days = [
+        (current_date - timedelta(days=1)).strftime('%Y-%m-%d'),
+        date,
+        (current_date + timedelta(days=1)).strftime('%Y-%m-%d')
+    ]
 
     for directory_entry in os.scandir(newspaper_dir):
         dir = f"{newspaper_dir}/{directory_entry.name}"
+        should_check = False
+        for tmp_d in check_days:
+            if tmp_d in directory_entry.name:
+                should_check = True
+
+        if not should_check:
+            continue
         with open(dir, "r", encoding="utf-8") as f:
             try:
                 snapshot = json.load(f)
@@ -76,11 +89,25 @@ def calculate_nlp(article: dict) -> dict:
     return article
 
 
-def array_nlp(article_set: list, label, queue):
+def array_nlp(article_set: list, label, queue=None):
     output = []
     for new in article_set:
         output.append(calculate_nlp(new))
     queue.put((output, label))
+
+def array_nlp_cache(article_set: list, label, cache_titles: list, cache_content: list):
+    output = []
+    for new in article_set:
+        if new["en_title"] in cache_titles[label]:
+            i = cache_titles[label].index(new["en_title"])
+            content = cache_content[label][i]
+            output.append(content)
+        else:
+            new_calculated = calculate_nlp(new)
+            cache_titles[label].append(new["en_title"])
+            cache_content[label].append(new_calculated)
+            output.append(new_calculated)
+    return output
 
 
 def calculate_similarity(art_a, art_b, threshold):
