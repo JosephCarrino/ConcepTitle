@@ -63,7 +63,7 @@ def main():
     cache_articles_content = []
     nome_giornali_local_time = []
 
-    for i in range(0, 24):
+    for i in range(0, 2): #TODO: PUT 24 INSTEAD OF 2
         if i % HOURS != 0:
             continue
         if i + HOURS - 1 >= 24:
@@ -71,7 +71,7 @@ def main():
 
         print(f"DALLE ORE {i}:00:00 ALLE ORE {i + HOURS - 1}:59:59 ")
 
-        nome_giornali_local_time.append([])
+        nome_giornali_local_time.append({})
         articles = []
         articles_st = []
         articles_nro = []
@@ -92,9 +92,9 @@ def main():
         for (index, article_set) in enumerate(articles):
             articles[index] = array_nlp_cache(articles[index], index, cache_articles_titles, cache_articles_content)
             articles_st[index] = array_nlp_cache(articles_st[index], index, cache_articles_titles, cache_articles_content)
-            articles_nro.append(len(articles))
+            articles_nro.append(len(articles[index]))
             articles_not_unique_title.append([])
-            articles_nro_st.append(len(articles))
+            articles_nro_st.append(len(articles_st[index]))
             articles_not_unique_title_st.append([])
 
 
@@ -161,7 +161,7 @@ def main():
             else:
                 max_value = max(max_value, articles_nro_st[label])
 
-            nome_giornali_local_time[i][path] = (
+            nome_giornali_local_time[i][f"st_{path}"] = (
                 len(articles_not_unique_title_st[label]),
                 articles_nro_st[label],
             )
