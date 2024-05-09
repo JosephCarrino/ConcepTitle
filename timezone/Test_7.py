@@ -40,12 +40,15 @@ def draw_graph(nome_giornali_data: dict, min_value: int, max_value: int, i, HOUR
     width = 0.90 / len(NEWS_PAPERS)
     multiplier = 0
 
-    fig, ax = plt.subplots(layout='constrained')
+    fig, ax = plt.subplots(2, 1)
     for attribute, measurement in nome_giornali_data.items():
+        if "st" in attribute:
+            continue
         offset = width * multiplier
         rects = ax.bar(x_arange + offset, measurement, width, label=attribute)
         ax.bar_label(rects, padding=3)
         multiplier += 1
+
 
     # Add some text for labels, title and custom x-axis tick labels, etc.
     ax.set_ylabel('Numero di Notizie')
@@ -53,17 +56,36 @@ def draw_graph(nome_giornali_data: dict, min_value: int, max_value: int, i, HOUR
     ax.set_xticks(x_arange + width, x_groups)
     ax.legend(loc='upper left', ncol=len(x_groups))
     ax.set_ylim(max(min_value - 5, 0), max_value)
-    # plt.savefig(f"TEST 6 - {i}", dpi=500)
     plt.show()
+
+def draw_graph_2(nome_giornali_data: dict, min_value: int, max_value: int, i, HOURS):
+    giornali = nome_giornali_data.keys()
+    notizie_uguali = []
+    notizie_totali = []
+    for data in nome_giornali_data.values():
+        notizie_uguali.append(data[0])
+        notizie_totali.append(data[1])
+
+    bar_width = 0.5
+    br1 = np.arange(len(giornali))
+    br2 = [x + bar_width for x in br1]
+
+    fig, axs = plt.subplots(1, 2)
+    fig.suptitle('CAMBIARE')
+    axs[0].bar(br1, notizie_uguali, color ='r', width = bar_width,
+        edgecolor ='grey', label = giornali)
+    axs[0].bar(br2, notizie_totali, color='b', width=bar_width,
+               edgecolor='grey', label=giornali)
+    axs[1].bar([0], [0])
+    plt.show(block=True)
 
 
 def main():
-
     cache_articles_titles = []
     cache_articles_content = []
     nome_giornali_local_time = []
 
-    for i in range(0, 2): #TODO: PUT 24 INSTEAD OF 2
+    for i in range(0, 1): #TODO: PUT 24 INSTEAD OF 2
         if i % HOURS != 0:
             continue
         if i + HOURS - 1 >= 24:
@@ -173,7 +195,7 @@ def main():
         del articles_not_unique_title
         del articles_not_unique_title_st
 
-    draw_graph(nome_giornali_local_time[i], min_value, max_value, i, HOURS)
+    draw_graph_2(nome_giornali_local_time[i], min_value, max_value, i, HOURS)
 
 
 
