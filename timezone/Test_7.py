@@ -60,7 +60,7 @@ def draw_graph(nome_giornali_data: dict, min_value: int, max_value: int, i, HOUR
 
 def draw_graph_2(nome_giornali_data_all: list, min_value: int, max_value: int, j, HOURS):
     for i in range(0, len(nome_giornali_data_all)):
-        if i % 2 == 1:
+        if i % HOURS == 0:
             continue
         nome_giornali_data = nome_giornali_data_all[i]
         nome_giornali_data_nd_line = nome_giornali_data_all[i + 1]
@@ -78,24 +78,35 @@ def draw_graph_2(nome_giornali_data_all: list, min_value: int, max_value: int, j
                 notizie_uguali_st.append(data[0])
                 notizie_totali_st.append(data[1])
 
-        bar_width = 0.3
+        bar_width = 0.2
         br1 = np.arange(len(giornali) // 2)
         br2 = [x + bar_width for x in br1]
+        br3 = [x + bar_width for x in br2]
+        br4 = [x + bar_width for x in br3]
 
-        fig, axs = plt.subplots(2, 2, figsize=(25, 15))
-        fig.suptitle(f"Numero di notizie TZ Taro vs Classic Taro.")
-        axs[0][0].bar(br1, notizie_uguali, color='r', width=bar_width,
+        for LINE in range(0, 2):
+            for COL in range(0, 2):
+                fig, axs = plt.subplots(2, 2, figsize=(25, 15))
+                fig.suptitle(f"Numero di notizie TZ Taro vs Classic Taro.")
+                axs[LINE][COL].bar(br1, notizie_uguali, color='r', width=bar_width,
                       edgecolor='grey', label="Notizie non uniche")
-        axs[0][0].bar(br2, notizie_totali, color='b', width=bar_width,
+                axs[LINE][COL].bar(br2, notizie_totali, color='b', width=bar_width,
                       edgecolor='grey', label="Notizie in Home page")
-        axs[0][0].legend()
-        axs[0][0].set_xlabel("Timezone TARO")
-        axs[0][0].set_ylabel("Numero di notizie")
-        axs[0][0].title.set_text(f"TZ Taro - Dalle ore {j - 1}:00:00 alle ore {j - 1 + HOURS - 1}:59:59")
-        x_labels = [""]
-        for label in giornali[0:len(giornali) // 2]:
-            x_labels.append(label)
-        axs[0][0].set_xticklabels(x_labels, fontsize=7)
+                axs[LINE][COL].bar(br3, notizie_uguali_st, color='g', width=bar_width,
+                      edgecolor='grey', label="Notizie non uniche (Classic Taro)")
+                axs[LINE][COL].bar(br4, notizie_totali_st, color='y', width=bar_width,
+                      edgecolor='grey', label="Notizie in Home page (Classic Taro)")
+                axs[LINE][COL].legend()
+                axs[LINE][COL].set_xlabel("Testate Giornalistiche")
+                axs[LINE][COL].set_ylabel("Numero di notizie")
+                axs[LINE][COL].title.set_text(f"Dalle ore {j - 1}:00:00 alle ore {j - 1 + HOURS - 1}:59:59")
+                x_labels = [""]
+                for label in giornali[0:len(giornali) // 2]:
+                    x_labels.append(label)
+                axs[LINE][COL].set_xticklabels(x_labels, fontsize=7)
+
+
+        """
         axs[0][1].bar(br1, notizie_uguali_st, color='r', width=bar_width,
                       edgecolor='grey', label="Notizie non uniche")
         axs[0][1].bar(br2, notizie_totali_st, color='b', width=bar_width,
@@ -152,9 +163,11 @@ def draw_graph_2(nome_giornali_data_all: list, min_value: int, max_value: int, j
             x_labels.append(label)
         axs[1][1].set_xticklabels(x_labels, fontsize=7)
 
+        """
+
         plt.savefig(f"ANALISI_ORARIA_{j - 1}_{j}.png", dpi=100)
-        # plt.show(block=True)
-        plt.close()
+        plt.show(block=True)
+        # plt.close()
 
 
 def main():
@@ -272,8 +285,8 @@ def main():
         del articles_nro_st
         del articles_not_unique_title
         del articles_not_unique_title_st
-        if i % 2 == 1:
-            draw_graph_2(nome_giornali_local_time[i - 1: i + 1], min_value, max_value, i, HOURS)
+        if i % 4 == 3:
+            draw_graph_2(nome_giornali_local_time[i - 3: i + 1], min_value, max_value, i, HOURS)
 
 
 if __name__ == '__main__':
