@@ -63,7 +63,7 @@ def draw_graph_2(nome_giornali_data_all: list, min_value: int, max_value: int, j
         if i % HOURS == 0:
             continue
         nome_giornali_data = nome_giornali_data_all[i]
-        nome_giornali_data_nd_line = nome_giornali_data_all[i + 1]
+        # nome_giornali_data_nd_line = nome_giornali_data_all[i + 1]
 
         giornali = list(nome_giornali_data.keys())
         notizie_uguali = []
@@ -86,6 +86,7 @@ def draw_graph_2(nome_giornali_data_all: list, min_value: int, max_value: int, j
 
         for LINE in range(0, 2):
             for COL in range(0, 2):
+                index = LINE * 2 + COL
                 fig, axs = plt.subplots(2, 2, figsize=(25, 15))
                 fig.suptitle(f"Numero di notizie TZ Taro vs Classic Taro.")
                 axs[LINE][COL].bar(br1, notizie_uguali, color='r', width=bar_width,
