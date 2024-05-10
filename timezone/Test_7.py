@@ -81,7 +81,7 @@ def draw_graph_2(nome_giornali_data: dict, min_value: int, max_value: int, i, HO
     br1 = np.arange(len(giornali) // 2)
     br2 = [x + bar_width for x in br1]
 
-    fig, axs = plt.subplots(1, 2, figsize=(20, 20))
+    fig, axs = plt.subplots(1, 2, figsize=(25, 15))
     fig.suptitle(f"Numero di notizie TZ Taro vs Classic Taro. Dalle ore {i}:00:00 alle ore {i + HOURS - 1}:59:59")
     axs[0].bar(br1, notizie_uguali, color='r', width=bar_width,
                edgecolor='grey', label="Notizie non uniche")
@@ -109,6 +109,7 @@ def draw_graph_2(nome_giornali_data: dict, min_value: int, max_value: int, i, HO
 
     # plt.show(block=True)
     plt.savefig(f"ANALISI_ORARIA_{i}.png", dpi=100)
+    plt.close()
 
 
 
@@ -227,8 +228,7 @@ def main():
         del articles_nro_st
         del articles_not_unique_title
         del articles_not_unique_title_st
-
-    draw_graph_2(nome_giornali_local_time[i], min_value, max_value, i, HOURS)
+        draw_graph_2(nome_giornali_local_time[i], min_value, max_value, i, HOURS)
 
 
 if __name__ == '__main__':
