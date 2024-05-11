@@ -31,7 +31,9 @@ home_pages = [
     "https://www.sowetanlive.co.za",
     "https://www.agi.it",
     "https://www.ansa.it",
-    "https://expresso.pt"
+    "https://expresso.pt",
+    "https://www.9news.com.au",
+    "https://www.brasil247.com"
 ]
 
 

@@ -31,7 +31,9 @@ home_pages = [
     "https://www.sowetanlive.co.za",
     "https://www.agi.it",
     "https://www.ansa.it",
-    "https://expresso.pt"
+    "https://expresso.pt",
+    "https://www.9news.com.au",
+    "https://www.brasil247.com"
 ]
 
 
@@ -113,7 +115,7 @@ def draw_graph_2(nome_giornali_data_all: list, min_value: int, max_value: int, j
                 x_labels = [""]
                 for label in giornali[0:len(giornali) // 2]:
                     x_labels.append(label)
-                axs[LINE][COL].set_xticklabels(x_labels, fontsize=10, rotation=90)
+                axs[LINE][COL].set_xticklabels(x_labels, fontsize=12, rotation=15)
 
 
 
