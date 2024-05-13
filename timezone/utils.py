@@ -38,7 +38,7 @@ def get_newspaper_time_articles(newspaper_dir: str, date: str, start_time: str, 
             except:
                 continue
 
-        if "scraping_time" not in first_article or "timezone" not in first_article or "local_time" not in first_article or "en_title" not in first_article:
+        if "scraping_time" not in first_article or "timezone" not in first_article or "local_time" not in first_article or "en_title" not in first_article or "title_NER" not in first_article:
             continue
 
         for article in snapshot:
