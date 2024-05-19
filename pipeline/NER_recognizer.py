@@ -9,7 +9,7 @@ import spacy
 my_subdirs = [
     'edition/DE',
     'edition/FR',
-    'edition/EN',
+    # 'edition/EN',
     'flow/DE',
     'flow/EN',
     'flow/IT',
