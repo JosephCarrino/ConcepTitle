@@ -14,7 +14,7 @@ my_subdirs = [
     'flow/EN',
     'flow/IT',
     'flow/PT',
-    'flow/FR',
+    #'flow/FR',
     'flow/ES'
 ]
 
