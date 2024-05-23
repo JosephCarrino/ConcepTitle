@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 # matplotlib.use('Agg')
 import numpy as np
 
-DAY = "2024-05-11"
+DAY = "2024-05-20"
 HOURS = 6
 COSINE_THRESHOLD = 0.9875
 
