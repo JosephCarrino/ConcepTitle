@@ -5,6 +5,7 @@ import spacy
 
 nlp = spacy.load("en_core_web_lg")
 
+#possibili temi: ["world", "economy", "sport", "tech", "culture", "politics"]
 categories = {
     "world": ["world", "mondo", "estero", "internacional", "mundo", "israel", "russia", "china", "argentina"],
     "economy": ["economy", "finance", "economia", "business", "empreender"],
@@ -142,6 +143,19 @@ def extract_homepage_articles(articles: list, home_page_links: list):
     for article in articles:
         if remove_slashes(article["url"]) in home_page_links:
             out.append(article)
+
+    return out
+
+def extract_theme_articles(articles: list, theme: str):
+    out = []
+
+    words = categories[theme]
+
+    for article in articles:
+        for word in words:
+            if word in remove_slashes(article["url"]) or word in article["news_url"]:
+                out.append(article)
+                break
 
     return out
 
