@@ -5,6 +5,15 @@ import spacy
 
 nlp = spacy.load("en_core_web_lg")
 
+categories = {
+    "world": ["world", "mondo", "estero", "internacional", "mundo", "israel", "russia", "china", "argentina"],
+    "economy": ["economy", "finance", "economia", "business", "empreender"],
+    "sport": ["sport", "esporte", "sports"],
+    "tech": ["tech", "future_tech", "technology"],
+    "culture": ["culture", "cultura", "environment"],
+    "politics": ["politics", "politica"],
+}
+
 
 def get_newspaper_time_articles(newspaper_dir: str, date: str, start_time: str, end_time: str,
                                 time: str = "local_time") -> list:
