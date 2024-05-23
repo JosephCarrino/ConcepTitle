@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 # matplotlib.use('Agg')
 import numpy as np
 
-DAY = "2024-05-11"
+DAY = "2024-05-20"
 HOURS = 3
 COSINE_THRESHOLD = 0.9875
 
@@ -17,8 +17,6 @@ NEWS_PAPERS = [
     "IT/AGI",
     "PT/ExpressoPt",
     "EN/LosAngelesTimes",
-    # "EN/NewsComAu",  # TODO: CHANGE
-    # "EN/RioTimes",  # TODO: CHANGE
     "EN/9News",
     "PT/Brasil247",
     "EN/SowetanLive",
@@ -85,25 +83,25 @@ def draw_graph_2(nome_giornali_data_all: list, min_value: int, max_value: int, j
                     notizie_uguali_st.append(data[0])
                     notizie_totali_st.append(data[1])
 
-            bar_width = 0.2
+            bar_width = 0.25
             br1 = np.arange(len(giornali) // 2)
-            br2 = [x + bar_width for x in br1]
-            br3 = [x + bar_width for x in br2]
-            br4 = [x + bar_width for x in br3]
+            br2 = [x + (bar_width / 2) for x in br1]
+            br3 = [x + bar_width + 0.05 for x in br2]
+            br4 = [x + (bar_width / 2) for x in br3]
 
             fig.suptitle(f"Numero di notizie TZ Taro vs Classic Taro.")
+            b2 = axs[LINE][COL].bar(br2, notizie_totali, color='#0377fc', width=bar_width,
+                                    edgecolor='grey', label="Notizie in Home page")
             b1 = axs[LINE][COL].bar(br1, notizie_uguali, color='r', width=bar_width,
                                     edgecolor='grey', label="Notizie non uniche")
-            b2 = axs[LINE][COL].bar(br2, notizie_totali, color='b', width=bar_width,
-                                    edgecolor='grey', label="Notizie in Home page")
-            b3 = axs[LINE][COL].bar(br3, notizie_uguali_st, color='g', width=bar_width,
-                                    edgecolor='grey', label="Notizie non uniche (Classic Taro)")
             b4 = axs[LINE][COL].bar(br4, notizie_totali_st, color='y', width=bar_width,
                                     edgecolor='grey', label="Notizie in Home page (Classic Taro)")
-            axs[LINE][COL].bar_label(b1, fmt='%.0f')
+            b3 = axs[LINE][COL].bar(br3, notizie_uguali_st, color='g', width=bar_width,
+                                    edgecolor='grey', label="Notizie non uniche (Classic Taro)")
             axs[LINE][COL].bar_label(b2, fmt='%.0f')
-            axs[LINE][COL].bar_label(b3, fmt='%.0f')
+            axs[LINE][COL].bar_label(b1, fmt='%.0f')
             axs[LINE][COL].bar_label(b4, fmt='%.0f')
+            axs[LINE][COL].bar_label(b3, fmt='%.0f')
             axs[LINE][COL].legend()
             axs[LINE][COL].set_ylabel("Numero di notizie")
             axs[LINE][COL].title.set_text(

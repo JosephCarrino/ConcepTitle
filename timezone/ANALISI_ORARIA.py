@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 # matplotlib.use('Agg')
 import numpy as np
 
-DAY = "2024-05-11"
+DAY = "2024-05-20"
 HOURS = 1
 COSINE_THRESHOLD = 0.9875
 
@@ -17,8 +17,6 @@ NEWS_PAPERS = [
     "IT/AGI",
     "PT/ExpressoPt",
     "EN/LosAngelesTimes",
-    # "EN/NewsComAu",  # TODO: CHANGE
-    # "EN/RioTimes",  # TODO: CHANGE
     "EN/9News",
     "PT/Brasil247",
     "EN/SowetanLive",
@@ -35,32 +33,6 @@ home_pages = [
     "https://www.9news.com.au",
     "https://www.brasil247.com"
 ]
-
-
-def draw_graph(nome_giornali_data: dict, min_value: int, max_value: int, i, HOURS):
-    x_groups = ("Notizie ritenute non uniche", "Totale Notizie")
-    x_arange = np.arange(len(x_groups))
-    width = 0.90 / len(NEWS_PAPERS)
-    multiplier = 0
-
-    fig, ax = plt.subplots(2, 1)
-    for attribute, measurement in nome_giornali_data.items():
-        if "st" in attribute:
-            continue
-        offset = width * multiplier
-        rects = ax.bar(x_arange + offset, measurement, width, label=attribute)
-        ax.bar_label(rects, padding=3)
-        multiplier += 1
-
-    # Add some text for labels, title and custom x-axis tick labels, etc.
-    ax.set_ylabel('Numero di Notizie')
-    ax.set_title(
-        f"Notizie ritenute non uniche e Notizie Totali a confronto - TZ Taro - DALLE ORE {i}:00:00 ALLE ORE {i + HOURS - 1}:59:59")
-    ax.set_xticks(x_arange + width, x_groups)
-    ax.legend(loc='upper left', ncol=len(x_groups))
-    ax.set_ylim(max(min_value - 5, 0), max_value)
-    plt.show()
-
 
 def draw_graph_2(nome_giornali_data_all: list, min_value: int, max_value: int, j, HOURS):
     no_graph = 4
@@ -88,26 +60,25 @@ def draw_graph_2(nome_giornali_data_all: list, min_value: int, max_value: int, j
                         notizie_uguali_st.append(data[0])
                         notizie_totali_st.append(data[1])
 
-                bar_width = 0.2
+                bar_width = 0.25
                 br1 = np.arange(len(giornali) // 2)
-                br2 = [x + bar_width for x in br1]
-                br3 = [x + bar_width for x in br2]
-                br4 = [x + bar_width for x in br3]
-
+                br2 = [x + (bar_width / 2) for x in br1]
+                br3 = [x + bar_width + 0.05 for x in br2]
+                br4 = [x + (bar_width / 2) for x in br3]
 
                 fig.suptitle(f"Numero di notizie TZ Taro vs Classic Taro.")
+                b2 = axs[LINE][COL].bar(br2, notizie_totali, color='#0377fc', width=bar_width,
+                                   edgecolor='grey', label="Notizie in Home page")
                 b1 = axs[LINE][COL].bar(br1, notizie_uguali, color='r', width=bar_width,
-                      edgecolor='grey', label="Notizie non uniche")
-                b2 = axs[LINE][COL].bar(br2, notizie_totali, color='b', width=bar_width,
-                      edgecolor='grey', label="Notizie in Home page")
-                b3 = axs[LINE][COL].bar(br3, notizie_uguali_st, color='g', width=bar_width,
-                      edgecolor='grey', label="Notizie non uniche (Classic Taro)")
+                                   edgecolor='grey', label="Notizie non uniche")
                 b4 = axs[LINE][COL].bar(br4, notizie_totali_st, color='y', width=bar_width,
-                      edgecolor='grey', label="Notizie in Home page (Classic Taro)")
-                axs[LINE][COL].bar_label(b1, fmt='%.0f')
+                                   edgecolor='grey', label="Notizie in Home page (Classic Taro)")
+                b3 = axs[LINE][COL].bar(br3, notizie_uguali_st, color='g', width=bar_width,
+                                   edgecolor='grey', label="Notizie non uniche (Classic Taro)")
                 axs[LINE][COL].bar_label(b2, fmt='%.0f')
-                axs[LINE][COL].bar_label(b3, fmt='%.0f')
+                axs[LINE][COL].bar_label(b1, fmt='%.0f')
                 axs[LINE][COL].bar_label(b4, fmt='%.0f')
+                axs[LINE][COL].bar_label(b3, fmt='%.0f')
                 axs[LINE][COL].legend()
                 axs[LINE][COL].set_xlabel("Testate Giornalistiche")
                 axs[LINE][COL].set_ylabel("Numero di notizie")
@@ -116,7 +87,6 @@ def draw_graph_2(nome_giornali_data_all: list, min_value: int, max_value: int, j
                 for label in giornali[0:len(giornali) // 2]:
                     x_labels.append(label)
                 axs[LINE][COL].set_xticklabels(x_labels, fontsize=12, rotation=15)
-
 
 
         plt.savefig(f"ANALISI_ORARIA_{j - no_graph + 1}_{j}.png", dpi=100)
