@@ -19,7 +19,7 @@ BASE_DIR = "../../Newscraping/collectedNews/flow"
 
 NEWS_PAPERS = [
     #["IT/ANSA", "IT/ANSA_Cronaca", "IT/ANSA_Esteri", "IT/ANSA_Politica"],
-    ["IT/AGI", "IT/AGI_Cronaca", "IT/AGI_Esteri", "IT/AGI_Politica"],
+    #["IT/AGI", "IT/AGI_Cronaca", "IT/AGI_Esteri", "IT/AGI_Politica"],
     ["PT/ExpressoPt"],
     ["EN/LosAngelesTimes"],
     ["EN/9News"],
@@ -29,7 +29,7 @@ NEWS_PAPERS = [
 
 FUSI_ORARI = [
     #"IT/ANSA \n CEST (+2)",
-    "IT/AGI \n CEST (+2)",
+    #"IT/AGI \n CEST (+2)",
     "PT/ExpressoPt \n WEST (+1)",
     "EN/LosAngelesTimes \n PDT (-7)",
     "EN/9News \n AEST (+10)",
