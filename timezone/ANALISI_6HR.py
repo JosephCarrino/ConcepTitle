@@ -14,11 +14,9 @@ BASE_DIR = "../../Newscraping/collectedNews/flow"
 
 NEWS_PAPERS = [
     "IT/ANSA",
-    "IT/AGI",
+    #"IT/AGI",
     "PT/ExpressoPt",
     "EN/LosAngelesTimes",
-    # "EN/NewsComAu",  # TODO: CHANGE
-    # "EN/RioTimes",  # TODO: CHANGE
     "EN/9News",
     "PT/Brasil247",
     "EN/SowetanLive",
