@@ -12,7 +12,7 @@ COSINE_THRESHOLD = 0.9875
 BASE_DIR = "../../Newscraping/collectedNews/flow"
 
 NEWS_PAPERS = [
-    #["IT/ANSA", "IT/ANSA_Cronaca", "IT/ANSA_Esteri", "IT/ANSA_Politica"],
+    ["IT/ANSA", "IT/ANSA_Cronaca", "IT/ANSA_Esteri", "IT/ANSA_Politica"],
     #["IT/AGI", "IT/AGI_Cronaca", "IT/AGI_Esteri", "IT/AGI_Politica"],
     ["PT/ExpressoPt"],
     ["EN/LosAngelesTimes"],
