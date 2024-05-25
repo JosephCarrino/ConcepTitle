@@ -12,3 +12,4 @@ fulltext/NER
 *.txt
 fulltext/__pycache__
 fulltext/BBC
+/timezone/en_core_web_sm/
