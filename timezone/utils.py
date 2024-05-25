@@ -5,7 +5,7 @@ import spacy
 
 nlp = spacy.load("en_core_web_lg")
 
-#possibili temi: ["world", "economy", "sport", "tech", "culture", "politics"]
+# possibili temi: ["world", "economy", "sport", "tech", "culture", "politics"]
 categories = {
     "world": ["world", "mondo", "estero", "internacional", "mundo", "israel", "russia", "china", "argentina"],
     "economy": ["economy", "finance", "economia", "business", "empreender"],
@@ -105,6 +105,7 @@ def array_nlp(article_set: list, label, queue=None):
         output.append(calculate_nlp(new))
     queue.put((output, label))
 
+
 def array_nlp_cache(article_set: list, label, cache_titles: list, cache_content: list):
     output = []
     for new in article_set:
@@ -146,6 +147,7 @@ def extract_homepage_articles(articles: list, home_page_links: list):
 
     return out
 
+
 def extract_theme_articles(articles: list, theme: str):
     out = []
 
@@ -167,4 +169,12 @@ def get_unique_articles(articles: list) -> list:
         if article["en_title"] not in titles:
             titles.append(article["en_title"])
             out.append(article)
+    return out
+
+
+def create_couples_index(news_paper_len: int) -> list:
+    out = []
+    for i in range(0, news_paper_len):
+        for j in range(i + 1, news_paper_len):
+            out.append((i, j))
     return out
