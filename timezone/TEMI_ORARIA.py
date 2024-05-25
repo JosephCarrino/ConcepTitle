@@ -22,7 +22,7 @@ NEWS_PAPERS = [
 ]
 
 FUSI_ORARI = [
-    #"IT/ANSA \n CEST (+2)",
+    "IT/ANSA \n CEST (+2)",
     #"IT/AGI \n CEST (+2)",
     "PT/ExpressoPt \n WEST (+1)",
     "EN/LosAngelesTimes \n PDT (-7)",
