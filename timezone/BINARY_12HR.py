@@ -98,13 +98,13 @@ def draw_graph_2(nome_giornali_data_all: list, min_value: int, max_value: int, j
 
 
 def main():
-    cache_articles_titles = []
-    cache_articles_content = []
-    nome_giornali_local_time = []
-
     couples = create_couples_index(len(NEWS_PAPERS))
 
     for (index_a, index_b) in couples:
+        cache_articles_titles = []
+        cache_articles_content = []
+        nome_giornali_local_time = []
+
         COUPLE_PAPERS = [NEWS_PAPERS[index_a], NEWS_PAPERS[index_b]]
         for i in range(0, 24):
             if i % HOURS != 0:
