@@ -92,7 +92,7 @@ def draw_graph_2(nome_giornali_data_all: list, min_value: int, max_value: int, j
             axs[LINE].set_xticklabels(x_labels, fontsize=14, rotation=10)
 
     couples = "_".join(couples).replace("/", "_")
-    plt.savefig(f"ANALISI_12HR_{(j + HOURS) - (HOURS * (no_graph))}_{j + HOURS}.png", dpi=100)
+    plt.savefig(f"ANALISI_12HR_{couples}_{(j + HOURS) - (HOURS * (no_graph))}_{j + HOURS}.png", dpi=100)
     # plt.show(block=True)
     plt.close()
 
