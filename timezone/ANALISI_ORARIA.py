@@ -22,6 +22,17 @@ NEWS_PAPERS = [
     "EN/SowetanLive",
 ]
 
+FUSI_ORARI = [
+    "IT/ANSA \n CEST (+2)",
+    "IT/AGI \n CEST (+2)",
+    "PT/ExpressoPt \n WEST (+1)",
+    "EN/LosAngelesTimes \n PDT (-7)",
+    "EN/9News \n AEST (+10)",
+    "PT/Brasil247 \n BRT (-3)",
+    "EN/SowetanLive \n SAST (+2) "
+]
+
+
 home_pages = [
     "https://www.latimes.com",
     "https://www.news.com.au",
@@ -168,7 +179,7 @@ def main():
         min_value = -1
         max_value = -1
 
-        for (label, path) in enumerate(NEWS_PAPERS):
+        for (label, path) in enumerate(FUSI_ORARI):
             if min_value == -1:
                 min_value = len(articles_not_unique_title[label])
             else:
@@ -187,7 +198,7 @@ def main():
         min_value = -1
         max_value = -1
 
-        for (label, path) in enumerate(NEWS_PAPERS):
+        for (label, path) in enumerate(FUSI_ORARI):
             if min_value == -1:
                 min_value = len(articles_not_unique_title_st[label])
             else:
