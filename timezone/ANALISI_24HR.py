@@ -13,23 +13,23 @@ COSINE_THRESHOLD = 0.9875
 BASE_DIR = "../../Newscraping/collectedNews/flow"
 
 NEWS_PAPERS = [
+    "PT/ExpressoPt",
     "IT/ANSA",
     "IT/AGI",
-    "PT/ExpressoPt",
+    "EN/SowetanLive",
+    "PT/Brasil247",
     "EN/LosAngelesTimes",
     "EN/9News",
-    "PT/Brasil247",
-    "EN/SowetanLive",
 ]
 
 FUSI_ORARI = [
+    "PT/ExpressoPt \n WEST (+1)",
     "IT/ANSA \n CEST (+2)",
     "IT/AGI \n CEST (+2)",
-    "PT/ExpressoPt \n WEST (+1)",
+    "EN/SowetanLive \n SAST (+2) ",
+    "PT/Brasil247 \n BRT (-3)",
     "EN/LosAngelesTimes \n PDT (-7)",
     "EN/9News \n AEST (+10)",
-    "PT/Brasil247 \n BRT (-3)",
-    "EN/SowetanLive \n SAST (+2) "
 ]
 
 home_pages = [

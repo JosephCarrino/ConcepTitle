@@ -13,15 +13,24 @@ COSINE_THRESHOLD = 0.9875
 BASE_DIR = "../../Newscraping/collectedNews/flow"
 
 NEWS_PAPERS = [
+    "PT/ExpressoPt",
     "IT/ANSA",
     "IT/AGI",
-    "PT/ExpressoPt",
+    "EN/SowetanLive",
+    "PT/Brasil247",
     "EN/LosAngelesTimes",
     "EN/9News",
-    "PT/Brasil247",
-    "EN/SowetanLive",
 ]
 
+FUSI_ORARI = [
+    "PT/ExpressoPt \n WEST (+1)",
+    "IT/ANSA \n CEST (+2)",
+    "IT/AGI \n CEST (+2)",
+    "EN/SowetanLive \n SAST (+2) ",
+    "PT/Brasil247 \n BRT (-3)",
+    "EN/LosAngelesTimes \n PDT (-7)",
+    "EN/9News \n AEST (+10)",
+]
 home_pages = [
     "https://www.latimes.com",
     "https://www.news.com.au",
@@ -120,7 +129,7 @@ def main():
             articles_not_unique_title_st = []
 
             for (label, path) in enumerate(COUPLE_PAPERS):
-                extracted_articles = extract_articles(BASE_DIR, path, DAY, f"{i}:00:00", f"{i + HOURS - 1}:59:59")
+                extracted_articles = extract_articles(BASE_DIR, path, DAY, f"{i}:00:00", f"{i + HOURS - 1}:59:59 DEL {DAY}")
                 extracted_articles = extract_homepage_articles(extracted_articles, home_pages)
                 extracted_articles_st = extract_articles_scraping_time(BASE_DIR, path, DAY, f"{i}:00:00",
                                                                        f"{i + HOURS - 1}:59:59")

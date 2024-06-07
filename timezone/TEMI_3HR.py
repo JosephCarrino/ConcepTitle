@@ -1,9 +1,8 @@
 # Given a Day returns the not unique news vs the captured news in 1 hour belts
 
-from utils import calculate_similarity, extract_articles, array_nlp_cache, extract_homepage_articles, \
+from utils import calculate_similarity, extract_articles, array_nlp_cache, \
     extract_articles_scraping_time, extract_theme_articles
 import matplotlib.pyplot as plt
-# matplotlib.use('Agg')
 import numpy as np
 
 DAY = "2024-05-20"
@@ -13,23 +12,23 @@ COSINE_THRESHOLD = 0.9875
 BASE_DIR = "../../Newscraping/collectedNews/flow"
 
 NEWS_PAPERS = [
-    ["IT/ANSA", "IT/ANSA_Cronaca", "IT/ANSA_Esteri", "IT/ANSA_Politica"],
-    #["IT/AGI", "IT/AGI_Cronaca", "IT/AGI_Esteri", "IT/AGI_Politica"],
     ["PT/ExpressoPt"],
+    ["IT/ANSA", "IT/ANSA_Cronaca", "IT/ANSA_Esteri", "IT/ANSA_Politica"],
+    ["IT/AGI", "IT/AGI_Cronaca", "IT/AGI_Esteri", "IT/AGI_Politica"],
+    ["EN/SowetanLive"],
+    ["PT/Brasil247"],
     ["EN/LosAngelesTimes"],
     ["EN/9News"],
-    ["PT/Brasil247"],
-    ["EN/SowetanLive"],
 ]
 
 FUSI_ORARI = [
-    "IT/ANSA \n CEST (+2)",
-    #"IT/AGI \n CEST (+2)",
     "PT/ExpressoPt \n WEST (+1)",
+    "IT/ANSA \n CEST (+2)",
+    "IT/AGI \n CEST (+2)",
+    "EN/SowetanLive \n SAST (+2) ",
+    "PT/Brasil247 \n BRT (-3)",
     "EN/LosAngelesTimes \n PDT (-7)",
     "EN/9News \n AEST (+10)",
-    "PT/Brasil247 \n BRT (-3)",
-    "EN/SowetanLive \n SAST (+2) "
 ]
 
 themes = ["world", "economy", "sport", "tech", "culture", "politics"]

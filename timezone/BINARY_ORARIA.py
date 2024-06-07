@@ -13,15 +13,24 @@ COSINE_THRESHOLD = 0.9875
 BASE_DIR = "../../Newscraping/collectedNews/flow"
 
 NEWS_PAPERS = [
+    "PT/ExpressoPt",
     "IT/ANSA",
     "IT/AGI",
-    "PT/ExpressoPt",
+    "EN/SowetanLive",
+    "PT/Brasil247",
     "EN/LosAngelesTimes",
     "EN/9News",
-    "PT/Brasil247",
-    "EN/SowetanLive",
 ]
 
+FUSI_ORARI = [
+    "PT/ExpressoPt \n WEST (+1)",
+    "IT/ANSA \n CEST (+2)",
+    "IT/AGI \n CEST (+2)",
+    "EN/SowetanLive \n SAST (+2) ",
+    "PT/Brasil247 \n BRT (-3)",
+    "EN/LosAngelesTimes \n PDT (-7)",
+    "EN/9News \n AEST (+10)",
+]
 home_pages = [
     "https://www.latimes.com",
     "https://www.news.com.au",
@@ -84,7 +93,7 @@ def draw_graph_2(nome_giornali_data_all: list, min_value: int, max_value: int, j
                 axs[LINE][COL].set_xlabel("Testate Giornalistiche")
                 axs[LINE][COL].set_ylabel("Numero di notizie")
                 axs[LINE][COL].title.set_text(
-                    f"Dalle ore {j - (no_graph - (index_hr + 1))}:00:00 alle ore {j - (no_graph - (index_hr + 1))}:59:59")
+                    f"Dalle ore {j - (no_graph - (index_hr + 1))}:00:00 alle ore {j - (no_graph - (index_hr + 1))}:59:59 DEL {DAY}")
                 x_labels = [""]
                 x_labels.append("")
                 x_labels.append(giornali[0:len(giornali) // 2][0])
