@@ -5,6 +5,7 @@ from utils import calculate_similarity, extract_articles, array_nlp_cache, extra
 import matplotlib.pyplot as plt
 # matplotlib.use('Agg')
 import numpy as np
+import sys
 
 DAY = "2024-05-20"
 HOURS = 1
@@ -32,7 +33,6 @@ FUSI_ORARI = [
     "EN/9News \n AEST (+10)",
 ]
 
-
 home_pages = [
     "https://www.latimes.com",
     "https://www.news.com.au",
@@ -44,6 +44,7 @@ home_pages = [
     "https://www.9news.com.au",
     "https://www.brasil247.com"
 ]
+
 
 def draw_graph_2(nome_giornali_data_all: list, min_value: int, max_value: int, j, HOURS):
     no_graph = 4
@@ -79,13 +80,13 @@ def draw_graph_2(nome_giornali_data_all: list, min_value: int, max_value: int, j
 
                 fig.suptitle(f"Numero di notizie TZ Taro vs Classic Taro.")
                 b2 = axs[LINE][COL].bar(br2, notizie_totali, color='#0377fc', width=bar_width,
-                                   edgecolor='grey', label="Notizie in Home page")
+                                        edgecolor='grey', label="Notizie in Home page")
                 b1 = axs[LINE][COL].bar(br1, notizie_uguali, color='r', width=bar_width,
-                                   edgecolor='grey', label="Notizie non uniche")
+                                        edgecolor='grey', label="Notizie non uniche")
                 b4 = axs[LINE][COL].bar(br4, notizie_totali_st, color='y', width=bar_width,
-                                   edgecolor='grey', label="Notizie in Home page (Classic Taro)")
+                                        edgecolor='grey', label="Notizie in Home page (Classic Taro)")
                 b3 = axs[LINE][COL].bar(br3, notizie_uguali_st, color='g', width=bar_width,
-                                   edgecolor='grey', label="Notizie non uniche (Classic Taro)")
+                                        edgecolor='grey', label="Notizie non uniche (Classic Taro)")
                 axs[LINE][COL].bar_label(b2, fmt='%.0f')
                 axs[LINE][COL].bar_label(b1, fmt='%.0f')
                 axs[LINE][COL].bar_label(b4, fmt='%.0f')
@@ -93,12 +94,12 @@ def draw_graph_2(nome_giornali_data_all: list, min_value: int, max_value: int, j
                 axs[LINE][COL].legend()
                 axs[LINE][COL].set_xlabel("Testate Giornalistiche")
                 axs[LINE][COL].set_ylabel("Numero di notizie")
-                axs[LINE][COL].title.set_text(f"Dalle ore {j - (no_graph - (index_hr + 1))}:00:00 alle ore {j - (no_graph - (index_hr + 1))}:59:59 DEL {DAY}")
+                axs[LINE][COL].title.set_text(
+                    f"Dalle ore {j - (no_graph - (index_hr + 1))}:00:00 alle ore {j - (no_graph - (index_hr + 1))}:59:59 DEL {DAY}")
                 x_labels = [""]
                 for label in giornali[0:len(giornali) // 2]:
                     x_labels.append(label)
                 axs[LINE][COL].set_xticklabels(x_labels, fontsize=12, rotation=15)
-
 
         plt.savefig(f"ANALISI_ORARIA_{j - no_graph + 1}_{j}.png", dpi=100)
         # plt.show(block=True)
@@ -225,4 +226,11 @@ def main():
 
 
 if __name__ == '__main__':
+    for i in range(1, len(sys.argv)):
+        try:
+            index = int(sys.argv[i])
+            del FUSI_ORARI[index]
+            del NEWS_PAPERS[index]
+        except:
+            break
     main()

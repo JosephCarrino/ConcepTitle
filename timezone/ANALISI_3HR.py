@@ -1,4 +1,5 @@
 # Given a Day returns the not unique news vs the captured news in 1 hour belts
+import sys
 
 from utils import calculate_similarity, extract_articles, array_nlp_cache, extract_homepage_articles, \
     extract_articles_scraping_time
@@ -246,5 +247,12 @@ def main():
 
 
 if __name__ == '__main__':
+    for i in range(1, len(sys.argv)):
+        try:
+            index = int(sys.argv[i])
+            del FUSI_ORARI[index]
+            del NEWS_PAPERS[index]
+        except:
+            break
     main()
 
