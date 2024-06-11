@@ -62,7 +62,7 @@ def draw_graph_2(nome_giornali_data_all: list, min_value: int, max_value: int, j
             notizie_uguali_st = []
             notizie_totali_st = []
             for index, data in enumerate(nome_giornali_data.values()):
-                if "st_" in giornali[index]:
+                if "st_" not in giornali[index]:
                     notizie_uguali.append(data[0])
                     notizie_totali.append(data[1])
                 else:
@@ -80,7 +80,7 @@ def draw_graph_2(nome_giornali_data_all: list, min_value: int, max_value: int, j
                                edgecolor='grey', label="Notizie in Home page")
             b1 = axs[LINE].bar(br1, notizie_uguali, color='r', width=bar_width,
                                     edgecolor='grey', label="Notizie non uniche")
-            b4 = axs[LINE].bar(br4, notizie_totali_st, color='y', width=bar_width,
+            b4 = axs[LINE].bar(br4, notizie_totali_st, color='#f5ef42', width=bar_width,
                                edgecolor='grey', label="Notizie in Home page (Classic Taro)")
             b3 = axs[LINE].bar(br3, notizie_uguali_st, color='g', width=bar_width,
                                     edgecolor='grey', label="Notizie non uniche (Classic Taro)")
@@ -101,6 +101,49 @@ def draw_graph_2(nome_giornali_data_all: list, min_value: int, max_value: int, j
     # plt.show(block=True)
     plt.close()
 
+def draw_ratio(nome_giornali_data_all: list, min_value: int, max_value: int, j, HOURS):
+    no_graph = 2
+
+    fig, axs = plt.subplots(2, 1, figsize=(25, 15))
+    for LINE in range(0, 2):
+        for COL in range(0, 1):
+            index_hr = LINE
+            nome_giornali_data = nome_giornali_data_all[index_hr]
+
+            giornali = list(nome_giornali_data.keys())
+            ratio = []
+            ratio_st = []
+            for index, data in enumerate(nome_giornali_data.values()):
+                if "st_" not in giornali[index]:
+                    ratio.append(data[0] / data[1])
+                else:
+                    ratio_st.append(data[0] / data[1])
+
+            bar_width = 0.40
+            br1 = np.arange(len(giornali) // 2)
+            br3 = [x + bar_width + 0.05 for x in br1]
+
+            fig.suptitle(f"Numero di notizie TZ Taro vs Classic Taro.")
+            b2 = axs[LINE].bar(br1, ratio, color='#0377fc', width=bar_width,
+                                    edgecolor='grey', label="Rapporto notizie non uniche / Totale notizie")
+            b1 = axs[LINE].bar(br3, ratio_st, color='g', width=bar_width,
+                                    edgecolor='grey',
+                                    label="Rapporto notizie non uniche / Totale notizie - Classic TARO")
+            axs[LINE].bar_label(b2, fmt='%.2f')
+            axs[LINE].bar_label(b1, fmt='%.2f')
+            axs[LINE].legend()
+            axs[LINE].set_ylabel("Rapporto")
+            axs[LINE].title.set_text(
+                f"Dalle ore {(j + HOURS) - (HOURS * (no_graph - index_hr))}:00:00 alle ore {(j + HOURS) - (HOURS * (no_graph - (index_hr + 1))) - 1}:59:59 DEL {DAY}")
+            x_labels = [""]
+
+            for label in giornali[0:len(giornali) // 2]:
+                x_labels.append(label)
+            axs[LINE].set_xticklabels(x_labels, fontsize=14, rotation=10)
+
+    plt.savefig(f"RATIO_ANALISI_12HR_{(j + HOURS) - (HOURS * (no_graph))}_{j + HOURS}.png", dpi=100)
+    # plt.show(block=True)
+    plt.close()
 
 def main():
     cache_articles_titles = []
@@ -218,6 +261,7 @@ def main():
         del articles_not_unique_title
         del articles_not_unique_title_st
         if (i % (HOURS * 2)) == (HOURS * 2 - HOURS):
+            draw_ratio(nome_giornali_local_time[0: 2], min_value, max_value, i, HOURS)
             draw_graph_2(nome_giornali_local_time[0: 2], min_value, max_value, i, HOURS)
 
 

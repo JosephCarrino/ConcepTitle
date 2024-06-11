@@ -64,7 +64,7 @@ def draw_graph_2(nome_giornali_data_all: list, min_value: int, max_value: int, j
             notizie_uguali_st = []
             notizie_totali_st = []
             for index, data in enumerate(nome_giornali_data.values()):
-                if "st_" in giornali[index]:
+                if "st_" not in giornali[index]:
                     notizie_uguali.append(data[0])
                     notizie_totali.append(data[1])
                 else:
