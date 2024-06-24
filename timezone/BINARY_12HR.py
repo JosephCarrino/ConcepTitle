@@ -101,8 +101,57 @@ def draw_graph_2(nome_giornali_data_all: list, min_value: int, max_value: int, j
             x_labels.append("")
             axs[LINE].set_xticklabels(x_labels, fontsize=14, rotation=10)
 
-    couples = "_".join(couples).replace("/", "_")
-    plt.savefig(f"ANALISI_12HR_{couples}_{(j + HOURS) - (HOURS * (no_graph))}_{j + HOURS}.png", dpi=100)
+    name = "_".join(couples).replace("/", "_")
+    plt.savefig(f"BINARY_ANALISI_12HR_{name}_{(j + HOURS) - (HOURS * (no_graph))}_{j + HOURS}.png", dpi=100)
+    # plt.show(block=True)
+    plt.close()
+
+def draw_ratio(nome_giornali_data_all: list, min_value: int, max_value: int, j, HOURS, couples):
+    no_graph = 2
+
+    fig, axs = plt.subplots(2, 1, figsize=(25, 15))
+    for LINE in range(0, 2):
+        for COL in range(0, 1):
+            index_hr = LINE
+            nome_giornali_data = nome_giornali_data_all[index_hr]
+
+            giornali = list(nome_giornali_data.keys())
+            ratio = []
+            ratio_st = []
+            for index, data in enumerate(nome_giornali_data.values()):
+                if "st_" not in giornali[index]:
+                    ratio.append(data[0] / data[1])
+                else:
+                    ratio_st.append(data[0] / data[1])
+
+            bar_width = 0.40
+            br1 = np.arange(len(giornali) // 2)
+            br3 = [x + bar_width + 0.05 for x in br1]
+
+            fig.suptitle(f"Numero di notizie TZ Taro vs Classic Taro.")
+            b2 = axs[LINE].bar(br1, ratio, color='#0377fc', width=bar_width,
+                                    edgecolor='grey', label="Rapporto notizie non uniche / Totale notizie")
+            b1 = axs[LINE].bar(br3, ratio_st, color='g', width=bar_width,
+                                    edgecolor='grey',
+                                    label="Rapporto notizie non uniche / Totale notizie - Classic TARO")
+            axs[LINE].bar_label(b2, fmt='%.2f')
+            axs[LINE].bar_label(b1, fmt='%.2f')
+            axs[LINE].legend()
+            axs[LINE].set_ylabel("Rapporto")
+            axs[LINE].title.set_text(
+                f"Dalle ore {(j + HOURS) - (HOURS * (no_graph - index_hr))}:00:00 alle ore {(j + HOURS) - (HOURS * (no_graph - (index_hr + 1))) - 1}:59:59 DEL {DAY}")
+            x_labels = [""]
+            x_labels.append("")
+            x_labels.append(giornali[0:len(giornali) // 2][0])
+            x_labels.append("")
+            x_labels.append("")
+            x_labels.append("")
+            x_labels.append(giornali[0:len(giornali) // 2][1])
+            x_labels.append("")
+            axs[LINE].set_xticklabels(x_labels, fontsize=14, rotation=10)
+
+    name = "_".join(couples).replace("/", "_")
+    plt.savefig(f"BINARY_RATIO_ANALISI_12HR_{name}_{(j + HOURS) - (HOURS * (no_graph))}_{j + HOURS}.png", dpi=100)
     # plt.show(block=True)
     plt.close()
 
@@ -230,6 +279,7 @@ def main():
             del articles_not_unique_title_st
             if (i % (HOURS * 2)) == (HOURS * 2 - HOURS):
                 draw_graph_2(nome_giornali_local_time[0: 2], min_value, max_value, i, HOURS, COUPLE_PAPERS)
+                draw_ratio(nome_giornali_local_time[0: 2], min_value, max_value, i, HOURS, COUPLE_PAPERS)
 
 
 if __name__ == '__main__':

@@ -69,11 +69,11 @@ def draw_graph_2(nome_giornali_data_all: list, min_value: int, max_value: int, j
 
                 fig.suptitle(f"Numero di notizie TZ Taro vs Classic Taro.")
                 b2 = axs[LINE][COL].bar(br2, notizie_totali, color='#0377fc', width=bar_width,
-                                        edgecolor='grey', label="Notizie in Home page")
+                                        edgecolor='grey', label="Notizie ")
                 b1 = axs[LINE][COL].bar(br1, notizie_uguali, color='r', width=bar_width,
                                         edgecolor='grey', label="Notizie non uniche")
                 b4 = axs[LINE][COL].bar(br4, notizie_totali_st, color='y', width=bar_width,
-                                        edgecolor='grey', label="Notizie in Home page (Classic Taro)")
+                                        edgecolor='grey', label="Notizie  (Classic Taro)")
                 b3 = axs[LINE][COL].bar(br3, notizie_uguali_st, color='g', width=bar_width,
                                         edgecolor='grey', label="Notizie non uniche (Classic Taro)")
                 axs[LINE][COL].bar_label(b2, fmt='%.0f')
@@ -81,7 +81,6 @@ def draw_graph_2(nome_giornali_data_all: list, min_value: int, max_value: int, j
                 axs[LINE][COL].bar_label(b4, fmt='%.0f')
                 axs[LINE][COL].bar_label(b3, fmt='%.0f')
                 axs[LINE][COL].legend()
-                axs[LINE][COL].set_xlabel("Testate Giornalistiche")
                 axs[LINE][COL].set_ylabel("Numero di notizie")
                 axs[LINE][COL].title.set_text(
                     f"Dalle ore {j - (no_graph - (index_hr + 1))}:00:00 alle ore {j - (no_graph - (index_hr + 1))}:59:59")
@@ -93,6 +92,7 @@ def draw_graph_2(nome_giornali_data_all: list, min_value: int, max_value: int, j
         plt.savefig(f"TEMI_ORARIA_{theme}_{j - no_graph + 1}_{j}.png", dpi=100)
         # plt.show(block=True)
         plt.close()
+
 
 def draw_ratio(nome_giornali_data_all: list, min_value: int, max_value: int, j, HOURS, theme):
     no_graph = 4

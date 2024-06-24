@@ -64,11 +64,11 @@ def draw_graph_2(nome_giornali_data_all: list, min_value: int, max_value: int, j
 
     fig.suptitle(f"Numero di notizie TZ Taro vs Classic Taro.")
     b2 = axs.bar(br2, notizie_totali, color='#0377fc', width=bar_width,
-                 edgecolor='grey', label="Notizie in Home page")
+                 edgecolor='grey', label="Notizie ")
     b1 = axs.bar(br1, notizie_uguali, color='r', width=bar_width,
                  edgecolor='grey', label="Notizie non uniche")
     b4 = axs.bar(br4, notizie_totali_st, color='y', width=bar_width,
-                 edgecolor='grey', label="Notizie in Home page (Classic Taro)")
+                 edgecolor='grey', label="Notizie  (Classic Taro)")
     b3 = axs.bar(br3, notizie_uguali_st, color='g', width=bar_width,
                  edgecolor='grey', label="Notizie non uniche (Classic Taro)")
     axs.bar_label(b2, fmt='%.0f')

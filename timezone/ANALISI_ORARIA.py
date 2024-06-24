@@ -92,7 +92,6 @@ def draw_graph_2(nome_giornali_data_all: list, min_value: int, max_value: int, j
                 axs[LINE][COL].bar_label(b4, fmt='%.0f')
                 axs[LINE][COL].bar_label(b3, fmt='%.0f')
                 axs[LINE][COL].legend()
-                axs[LINE][COL].set_xlabel("Testate Giornalistiche")
                 axs[LINE][COL].set_ylabel("Numero di notizie")
                 axs[LINE][COL].title.set_text(
                     f"Dalle ore {j - (no_graph - (index_hr + 1))}:00:00 alle ore {j - (no_graph - (index_hr + 1))}:59:59 DEL {DAY}")
