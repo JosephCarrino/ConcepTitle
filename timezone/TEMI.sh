@@ -1,9 +1,10 @@
-python3 TEMI_ORARIA.py &&
-python3 TEMI_3HR.py &&
-python3 TEMI_6HR.py &&
-python3 TEMI_12HR.py &&
-python3 TEMI_24HR.py &&
-python3 TEMI_4D.py &&
+(python3 TEMI_ORARIA.py &
+python3 TEMI_3HR.py &
+python3 TEMI_6HR.py &
+python3 TEMI_12HR.py &
+python3 TEMI_24HR.py &
+python3 TEMI_4D.py &
+wait) &&
 mkdir out/world_ratio &&
 mv RATIO_TEMI_*_world_*.png out/world_ratio/ &&
 mkdir out/world &&
@@ -29,12 +30,13 @@ mv RATIO_TEMI_*_politics_*.png out/politics_ratio/ &&
 mkdir out/politics &&
 mv TEMI_*_politics_*.png out/politics/ &&
 
-python3 TEMI_ORARIA.py 1 &&
-python3 TEMI_3HR.py 1 &&
-python3 TEMI_6HR.py 1 &&
-python3 TEMI_12HR.py 1 &&
-python3 TEMI_24HR.py 1 &&
-python3 TEMI_4D.py 1 &&
+(python3 TEMI_ORARIA.py 1 &
+python3 TEMI_3HR.py 1 &
+python3 TEMI_6HR.py 1 &
+python3 TEMI_12HR.py 1 &
+python3 TEMI_24HR.py 1 &
+python3 TEMI_4D.py 1 &
+wait) &&
 mkdir out/world_ratio_no_ansa &&
 mv RATIO_TEMI_*_world_*.png out/world_ratio_no_ansa/ &&
 mkdir out/world_no_ansa &&
@@ -60,12 +62,13 @@ mv RATIO_TEMI_*_politics_*.png out/politics_ratio_no_ansa/ &&
 mkdir out/politics_no_ansa &&
 mv TEMI_*_politics_*.png out/politics_no_ansa/ &&
 
-python3 TEMI_ORARIA.py 2 &&
-python3 TEMI_3HR.py 2 &&
-python3 TEMI_6HR.py 2 &&
-python3 TEMI_12HR.py 2 &&
-python3 TEMI_24HR.py 2 &&
-python3 TEMI_4D.py 2 &&
+(python3 TEMI_ORARIA.py 2 &
+python3 TEMI_3HR.py 2 &
+python3 TEMI_6HR.py 2 &
+python3 TEMI_12HR.py 2 &
+python3 TEMI_24HR.py 2 &
+python3 TEMI_4D.py 2 &
+wait) &&
 mkdir out/world_ratio_no_agi &&
 mv RATIO_TEMI_*_world_*.png out/world_ratio_no_agi/ &&
 mkdir out/world_no_agi &&
@@ -91,12 +94,13 @@ mv RATIO_TEMI_*_politics_*.png out/politics_ratio_no_agi/ &&
 mkdir out/politics_no_agi &&
 mv TEMI_*_politics_*.png out/politics_no_agi/ &&
 
-python3 TEMI_ORARIA.py 2 1 &&
-python3 TEMI_3HR.py  2 1 &&
-python3 TEMI_6HR.py 2 1 &&
-python3 TEMI_12HR.py 2 1 &&
-python3 TEMI_24HR.py 2 1 &&
-python3 TEMI_4D.py 2 1 &&
+(python3 TEMI_ORARIA.py 2 1 &
+python3 TEMI_3HR.py  2 1 &
+python3 TEMI_6HR.py 2 1 &
+python3 TEMI_12HR.py 2 1 &
+python3 TEMI_24HR.py 2 1 &
+python3 TEMI_4D.py 2 1 &
+wait) &&
 mkdir out/world_ratio_no_ita &&
 mv RATIO_TEMI_*_world_*.png out/world_ratio_no_ita/ &&
 mkdir out/world_no_ita &&

@@ -79,7 +79,7 @@ def draw_graph_2(nome_giornali_data_all: list, min_value: int, max_value: int, j
                                     edgecolor='grey', label="Notizie in Home page")
             b1 = axs[LINE][COL].bar(br1, notizie_uguali, color='r', width=bar_width,
                                     edgecolor='grey', label="Notizie non uniche")
-            b4 = axs[LINE][COL].bar(br4, notizie_totali_st, color='y', width=bar_width,
+            b4 = axs[LINE][COL].bar(br4, notizie_totali_st, color='#f5ef42', width=bar_width,
                                     edgecolor='grey', label="Notizie in Home page (Classic Taro)")
             b3 = axs[LINE][COL].bar(br3, notizie_uguali_st, color='g', width=bar_width,
                                     edgecolor='grey', label="Notizie non uniche (Classic Taro)")
@@ -102,7 +102,7 @@ def draw_graph_2(nome_giornali_data_all: list, min_value: int, max_value: int, j
             axs[LINE][COL].set_xticklabels(x_labels, fontsize=12, rotation=15)
 
     name = "_".join(couples).replace("/", "_")
-    plt.savefig(f"ANALISI_3HR_{name}_{(j + HOURS) - (HOURS * (no_graph))}_{j + HOURS}.png", dpi=100)
+    plt.savefig(f"BINARY_ANALISI_3HR_{name}_{(j + HOURS) - (HOURS * (no_graph))}_{j + HOURS}.png", dpi=100)
     # plt.show(block=True)
     plt.close()
 

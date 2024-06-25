@@ -70,7 +70,7 @@ def draw_graph_2(nome_giornali_data_all: list, min_value: int, max_value: int, j
                                edgecolor='grey', label="Notizie ")
             b1 = axs[LINE].bar(br1, notizie_uguali, color='r', width=bar_width,
                                edgecolor='grey', label="Notizie non uniche")
-            b4 = axs[LINE].bar(br4, notizie_totali_st, color='y', width=bar_width,
+            b4 = axs[LINE].bar(br4, notizie_totali_st, color='#f5ef42', width=bar_width,
                                edgecolor='grey', label="Notizie  (Classic Taro)")
             b3 = axs[LINE].bar(br3, notizie_uguali_st, color='g', width=bar_width,
                                edgecolor='grey', label="Notizie non uniche (Classic Taro)")
