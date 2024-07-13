@@ -38,7 +38,7 @@ def main():
         for list2 in list1:
             for item in list2:
                 out_fl.append(item)
-    save_file('.', 'editions_simils.json', out_ed)
+    # save_file('.', 'editions_simils.json', out_ed)
     save_file('.', 'flows_simils.json', out_fl)
 
 def save_file(directory: str, filename : str, content):
